@@ -28,6 +28,7 @@
   --yellow: #f5c518;
   --line: #e2d3ae;
   --card: #fffdf6;
+  --marble: url("assets/marble-light.webp");
   --on-accent: #ffffff;
   --ph: #efe3c4;
   --font-display: "Cinzel", "Trajan Pro", Georgia, serif;
@@ -40,13 +41,13 @@
   :root:not([data-theme="light"]) {
     --paper: #1c140d; --paper-2: #251a11; --ink: #f6ead2; --ink-soft: #c9b597;
     --gold: #e0b24f; --gold-hi: #f0c870; --cyan: #3cc2ec; --magenta: #ff4fa3; --yellow: #ffd23d;
-    --line: #3d2d1d; --card: #261b12; --on-accent: #1c140d; --ph: #33251a; color-scheme: dark;
+    --line: #3d2d1d; --card: #261b12; --on-accent: #1c140d; --ph: #33251a; color-scheme: dark; --marble: url("assets/marble-dark.webp");
   }
 }
 :root[data-theme="dark"] {
   --paper: #1c140d; --paper-2: #251a11; --ink: #f6ead2; --ink-soft: #c9b597;
   --gold: #e0b24f; --gold-hi: #f0c870; --cyan: #3cc2ec; --magenta: #ff4fa3; --yellow: #ffd23d;
-  --line: #3d2d1d; --card: #261b12; --on-accent: #1c140d; --ph: #33251a; color-scheme: dark;
+  --line: #3d2d1d; --card: #261b12; --on-accent: #1c140d; --ph: #33251a; color-scheme: dark; --marble: url("assets/marble-dark.webp");
 }
 
 * { box-sizing: border-box; }
@@ -262,6 +263,12 @@ img { height: auto; }
 }
 
 .cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+/* Marble backdrop: gold-veined white marble behind every section */
+body { isolation: isolate; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--paper) var(--marble) center / cover no-repeat; }
+.alt { background: color-mix(in srgb, var(--paper-2) 55%, transparent); }
+.festive { background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--yellow) 8%, transparent)); }
+.contact > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
 /* Footer */
 footer { border-top: 1px solid var(--line); padding-block: 32px; }
 footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; color: var(--ink-soft); font-size: .9rem; }
@@ -298,7 +305,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
             Shop on Amazon
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
           </a>
-          <a class="btn btn-ghost" href="#contact">Order directly</a>
+          <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener">Order on WhatsApp</a>
         </div>
         <div class="reg"><span>Design</span><span aria-hidden="true">·</span><span>Print</span><span aria-hidden="true">·</span><span>Ships across India</span></div>
       </div>
@@ -654,7 +661,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
       </div>
       <div class="store-cta">
         <p>See the full range on Amazon.in, or order directly from us for local and custom orders.</p>
-          <div class="cta-actions"><a class="btn btn-ghost" href="#contact">Order directly</a><a class="btn btn-ghost" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener">Visit our Amazon store</a></div>
+          <div class="cta-actions"><a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn btn-ghost" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener">Visit our Amazon store</a></div>
       </div>
     </div>
   </section>
@@ -667,7 +674,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
       </div>
       <ol class="steps">
         <li><h3>Pick a product</h3><p>Browse our designs here or on Amazon and choose the one you love, or tell us your own idea.</p></li>
-        <li><h3>Order your way</h3><p>Call, message or email us to order directly, including local orders, or order on Amazon and add your details in the customisation box.</p></li>
+        <li><h3>Order your way</h3><p>WhatsApp, call or email us to order directly, including local orders, or order on Amazon and add your details in the customisation box.</p></li>
         <li><h3>We design and print</h3><p>We prepare your artwork, print it in full colour, and deliver locally or ship across India.</p></li>
       </ol>
     </div>
@@ -689,9 +696,10 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
       <div class="section-head">
         <span class="eyebrow">Contact</span>
         <h2>Have an idea? Let's print it.</h2>
-        <p>For local orders, custom designs, bulk requests or questions about an Amazon order, call, message or email us.</p>
+        <p>For local orders, custom designs, bulk requests or questions about an Amazon order, WhatsApp, call or email us.</p>
       </div>
       <div class="contact">
+        <div><span class="label">WhatsApp</span><a class="value" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener">Chat on WhatsApp</a></div>
         <div><span class="label">Phone</span><a class="value" href="tel:+919579306816">+91 95793 06816</a></div>
         <div><span class="label">Email</span><a class="value" href="mailto:creativeprints1403@gmail.com">creativeprints1403@gmail.com</a></div>
         <div><span class="label">Instagram</span><a class="value" href="https://www.instagram.com/flinoshprints1403/" target="_blank" rel="noopener">@flinoshprints1403</a></div>
