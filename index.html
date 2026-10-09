@@ -14,7 +14,9 @@
 <meta property="og:title" content="Flinosh Prints | Custom Invitations, Cards &amp; Return Gifts">
 <meta property="og:description" content="Custom invitations, cards, gift tags, bookmarks and return gifts, designed and printed in Goa and delivered across India.">
 <meta property="og:url" content="https://flinoshprints.com/">
-<meta property="og:image" content="https://flinoshprints.com/assets/logo-full.webp">
+<meta property="og:image" content="https://flinoshprints.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Flinosh Prints logo">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -187,9 +189,12 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .contact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .contact div { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: grid; gap: 6px; min-width: 0; }
 .faq { display: grid; gap: 12px; max-width: 48em; }
-.faq details { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; }
-.faq summary { font-weight: 700; cursor: pointer; }
-.faq details p { margin-top: 10px; color: var(--ink-soft); }
+.faq details { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 0 22px; }
+.faq summary { cursor: pointer; list-style: none; padding: 18px 28px 18px 0; font-weight: 700; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.4rem; font-weight: 400; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq details p { margin: 0 0 18px; color: var(--ink-soft); }
 .contact .label { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
 .contact .value { font-weight: 700; overflow-wrap: anywhere; text-decoration: none; }
 .contact a.value:hover { color: var(--magenta); }
@@ -317,11 +322,62 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Do you deliver across India?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We are based in Goa and deliver all over India. Order directly on WhatsApp, or buy on Amazon.in for secure checkout and tracked delivery." } },
-    { "@type": "Question", "name": "Can you customise a design with my names, photo or theme?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every piece is designed by us, so we can add names, dates, photos, colours or a theme of your choice. Message us on WhatsApp with your idea." } },
-    { "@type": "Question", "name": "How do I place an order?", "acceptedAnswer": { "@type": "Answer", "text": "WhatsApp, call or email us to order directly, or order on Amazon.in and add your details in the customisation box." } },
-    { "@type": "Question", "name": "Do you take bulk orders for schools, events and businesses?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We print in bulk for schools, playschools, weddings, parties and businesses, including educational charts, name tags, invitations, return gift tags and visiting cards." } },
-    { "@type": "Question", "name": "Do you design logos and visiting cards?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We design logos, visiting cards, labels and stickers, and can print them for you too." } }
+    {
+      "@type": "Question",
+      "name": "Do you deliver across India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We are based in Goa and deliver all over India. Order directly on WhatsApp, or buy on Amazon.in for secure checkout and tracked delivery."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you customise a design with my names, photo or theme?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every piece is designed by us, so we can add names, dates, photos, colours or a theme of your choice. Message us on WhatsApp with your idea."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I place an order?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WhatsApp, call or email us to order directly, or order on Amazon.in and add your details in the customisation box."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you take bulk orders for schools, events and businesses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We print in bulk for schools, playschools, weddings, parties and businesses, including educational charts, name tags, invitations, return gift tags and visiting cards."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does an order take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the design and the quantity. Tell us when you need it when you message us, and we will confirm a delivery date before we start printing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about returns and refunds?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Orders placed on Amazon follow Amazon's return policy. For orders placed directly with us, we confirm the design with you before printing, and if anything is wrong with your order, contact us and we will make it right."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you design logos and visiting cards?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We design logos, visiting cards, labels and stickers, and can print them for you too."
+      }
+    }
   ]
 }
 </script>
@@ -339,6 +395,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
       <a href="#services">Services</a>
       <a href="#shop">Shop</a>
       <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
       <a class="btn btn-primary" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener">Shop on Amazon</a>
     </nav>
@@ -754,6 +811,8 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
         <details><summary>Can you customise a design with my names, photo or theme?</summary><p>Yes. Every piece is designed by us, so we can add names, dates, photos, colours or a theme of your choice. Message us on WhatsApp with your idea.</p></details>
         <details><summary>How do I place an order?</summary><p>WhatsApp, call or email us to order directly, or order on Amazon.in and add your details in the customisation box.</p></details>
         <details><summary>Do you take bulk orders for schools, events and businesses?</summary><p>Yes. We print in bulk for schools, playschools, weddings, parties and businesses, including educational charts, name tags, invitations, return gift tags and visiting cards.</p></details>
+        <details><summary>How long does an order take?</summary><p>It depends on the design and the quantity. Tell us when you need it when you message us, and we will confirm a delivery date before we start printing.</p></details>
+        <details><summary>What about returns and refunds?</summary><p>Orders placed on Amazon follow Amazon's return policy. For orders placed directly with us, we confirm the design with you before printing, and if anything is wrong with your order, contact us and we will make it right.</p></details>
         <details><summary>Do you design logos and visiting cards?</summary><p>Yes. We design logos, visiting cards, labels and stickers, and can print them for you too.</p></details>
       </div>
     </div>
