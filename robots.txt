@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flinoshprints.com/sitemap.xml
