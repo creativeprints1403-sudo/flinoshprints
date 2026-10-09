@@ -90,8 +90,8 @@ p { margin: 0; }
 .site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 10px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.brand img { width: 46px; height: auto; border-radius: 10px; background: #fff; }
-.brand .wordmark { width: auto; height: 52px; border-radius: 0; background: none; }
+.brand img { width: 68px; height: auto; border-radius: 10px; background: #fff; }
+.brand .wordmark { width: auto; height: 72px; border-radius: 0; background: none; }
 .nav { display: flex; align-items: center; gap: 22px; }
 .nav a { text-decoration: none; font-weight: 600; font-size: .95rem; color: var(--ink-soft); }
 .nav a:hover { color: var(--magenta); }
@@ -235,8 +235,10 @@ img { height: auto; }
 }
 @media (max-width: 700px) {
   body { font-size: 16px; }
-  .nav .btn { padding: 8px 14px; font-size: .82rem; }
-  .brand .wordmark { height: 34px; }
+  .nav .btn { padding: 8px 12px; font-size: .8rem; }
+  .brand { gap: 6px; }
+  .brand img { width: 52px; }
+  .brand .wordmark { height: 42px; }
   section { padding-block: 52px; }
   .section-head { margin-bottom: 26px; }
   .arrows { display: none; }
@@ -283,6 +285,7 @@ body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-even
 .lightbox img { max-width: min(1400px, calc(100vw - 48px)); max-height: calc(100dvh - 48px); object-fit: contain; width: auto; height: auto; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.5); background: #fff; }
 .lightbox button { position: absolute; top: 14px; right: 16px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--gold); background: var(--card); color: var(--ink); font-size: 1.6rem; line-height: 1; cursor: pointer; }
 .feature > img { aspect-ratio: 4 / 3; }
+@media (max-width: 380px) { .brand img { width: 44px; } .brand .wordmark { height: 35px; } }
 /* Footer */
 footer { border-top: 1px solid var(--line); padding-block: 32px; }
 footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; color: var(--ink-soft); font-size: .9rem; }
