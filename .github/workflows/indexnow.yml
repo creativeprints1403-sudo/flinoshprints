@@ -1,0 +1,28 @@
+# Tells Bing, Yandex, Seznam, Naver and other IndexNow search engines about
+# every page in sitemap.xml after each change to the site. Free, no account needed.
+name: Notify search engines
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml', 'feed.xml']
+  workflow_dispatch:
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for GitHub Pages to publish
+        run: sleep 120
+      - name: Submit sitemap URLs to IndexNow
+        run: |
+          KEY=771097feefb39287e76fb1a2005f2a5a
+          URLS=$(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//' | jq -R . | jq -s -c .)
+          BODY=$(jq -n -c --arg key "$KEY" --argjson urls "$URLS" \
+            '{host: "flinoshprints.com", key: $key, keyLocation: ("https://flinoshprints.com/" + $key + ".txt"), urlList: $urls}')
+          echo "$BODY"
+          curl -sS -o response.txt -w '%{http_code}\n' -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' -d "$BODY" | tee status.txt
+          cat response.txt
+          grep -qE '^(200|202)$' status.txt
