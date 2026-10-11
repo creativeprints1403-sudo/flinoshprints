@@ -71,6 +71,12 @@ def lastmod(rel):
     return TODAY if dirty or not out else out
 
 
+def pin_image(url):
+    """Prefer the JPG copy in assets/pins/ (Pinterest handles JPG best)."""
+    jpg = ROOT / "assets" / "pins" / (Path(url).stem + ".jpg")
+    return SITE + jpg.relative_to(ROOT).as_posix() if jpg.exists() else url
+
+
 def esc(s):
     return html.escape(s, quote=True)
 
@@ -86,6 +92,7 @@ def main():
     items.sort(key=lambda it: seen[it["guid"]], reverse=True)
     rows = []
     for it in items:
+        it["image"] = pin_image(it["image"])
         when = dt.datetime.fromisoformat(seen[it["guid"]]).replace(hour=9, tzinfo=dt.timezone(dt.timedelta(hours=5, minutes=30)))
         rows.append(f"""  <item>
     <title>{esc(it['title'])}</title>
