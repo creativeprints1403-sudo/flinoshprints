@@ -33,7 +33,7 @@ def cards(page):
         desc = re.search(r"<p>(.*?)</p>", body, re.S)
         btn = re.search(r'class="btn btn-primary" href="([^"]+)"', body)
         link = html.unescape(btn.group(1)) if btn and "amazon.in" in btn.group(1) else SITE + "#shop"
-        parts = [text(spec.group(1))] if spec else []
+        parts = [text(spec.group(1)) + "."] if spec else []
         if desc:
             parts.append(text(desc.group(1)))
         yield {
