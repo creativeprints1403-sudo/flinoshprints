@@ -6,7 +6,7 @@
 <title>Flinosh Prints Goa | Custom Invitations, Cards &amp; Return Gifts, Delivered Across India</title>
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#fdfdfb">
-<meta name="description" content="Custom invitations, greeting cards, gift tags, bookmarks, return gifts and festive prints, designed and printed by Flinosh Prints in Goa and delivered across India. Order on WhatsApp or Amazon.in.">
+<meta name="description" content="Custom wedding invitations, greeting cards, gift tags, bookmarks, return gifts and festive prints, designed and printed by Flinosh Prints in Goa and delivered across India. Order on WhatsApp or Amazon.in.">
 <link rel="canonical" href="https://flinoshprints.com/">
 <meta name="p:domain_verify" content="5d90d6e10d16a77e293eea02d500f10f"/>
 <meta property="og:type" content="website">
@@ -207,6 +207,19 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .festive { background: linear-gradient(180deg, var(--paper), color-mix(in srgb, var(--yellow) 12%, var(--paper))); }
 .feature-group { display: grid; gap: 14px; }
 .group-label { font-family: var(--font-mono); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--magenta); }
+.wedding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 1000px) { .wedding-grid { grid-template-columns: repeat(2, 1fr); } }
+.wedding-more { background: var(--paper-2); }
+.wedding-more .body > p { flex: 0 0 auto; }
+.wedding-more ul { margin: 0; padding-left: 1.1em; color: var(--ink-soft); display: grid; gap: 6px; }
+.wedding-more .btn { margin-top: auto; }
+.wedding-steps { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; counter-reset: wstep; }
+.wedding-steps li { counter-increment: wstep; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
+.wedding-steps li::before { content: counter(wstep); display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--gold); color: #fff; font-weight: 700; margin-bottom: 10px; }
+.wedding-steps h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.wedding-steps p { margin: 0; color: var(--ink-soft); }
+.wedding-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
+@media (max-width: 700px) { .wedding-grid { grid-template-columns: 1fr; gap: 16px; } .wedding-steps { grid-template-columns: 1fr; gap: 14px; } .wedding-cta .btn { width: 100%; justify-content: center; text-align: center; } }
 .ideas-link { margin: 0 0 14px; font-weight: 700; }
 .ideas-link a { color: var(--magenta); }
 .product .body > p.also-link { flex: 0; font-weight: 700; font-size: .9rem; display: block; }
@@ -357,6 +370,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
         "text": "WhatsApp, call or email us to order directly, or order on Amazon.in and add your details in the customisation box."
       }
     },
+    { "@type": "Question", "name": "Do you design and print wedding invitations?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We design printed and animated digital wedding invitations with your names, date, venue and family details, plus matching shagun envelopes, thank-you tags, stickers and keepsake magnets. Message us on WhatsApp with your wedding date and guest count for designs and a price." } },
     {
       "@type": "Question",
       "name": "Do you take bulk orders for schools, events and businesses?",
@@ -404,6 +418,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#festive">Festive</a>
+      <a href="#weddings">Weddings</a>
       <a href="#services">Services</a>
       <a href="#shop">Shop</a>
       <a href="#about">About</a>
@@ -725,6 +740,90 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
     </div>
   </section>
 
+  <section id="weddings">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Weddings</span>
+        <h2>Wedding invitations, designed and printed</h2>
+        <p>From the first invite to the last thank-you, we design your wedding stationery around your names, colours and traditions, then print it and deliver it anywhere in India. Prices depend on the design and quantity, so message us with your date and guest count for a quote.</p>
+      </div>
+      <p class="ideas-link"><a href="ideas/wedding-stationery-ideas.html">Need inspiration? See 6 wedding stationery ideas</a></p>
+      <div class="wedding-grid">
+        <article class="feature">
+          <img src="assets/gold-butterfly-wedding-invite.webp" alt="Ivory wedding invitation with gold butterflies, gold flowers and an arched gold frame" loading="lazy" width="640" height="960" style="object-position:center 20%">
+          <div class="body">
+            <h3>Printed wedding invitations</h3>
+            <p class="spec">Designed with your names · printed on 300 GSM card</p>
+            <p>Classic invitation cards for church, temple, garden and hall weddings, with your names, date, venue and family details. We can change the wording, colours or language to suit your families.</p>
+            <a class="btn btn-primary" href="https://www.amazon.in/dp/B0GXYM6DFQ" target="_blank" rel="noopener" aria-label="View Printed wedding invitations on Amazon">View on Amazon</a>
+            <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Printed%20wedding%20invitations.%20Wedding%20date%3A%20" target="_blank" rel="noopener" aria-label="Order Printed wedding invitations on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature">
+          <img src="assets/invite-animated.webp" alt="Animated purple floral wedding invitation, designed by Flinosh Prints" loading="lazy" width="432" height="396" style="object-position:center 30%">
+          <div class="body">
+            <h3>Animated digital invitations</h3>
+            <p class="spec">Video or image invite · ready for WhatsApp</p>
+            <p>Animated floral invitations in purple, lilac or blush that you can forward to every family group in seconds. We can match them to your printed cards so both look the same.</p>
+            <a class="btn btn-primary" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Animated%20digital%20wedding%20invitation.%20Wedding%20date%3A%20" target="_blank" rel="noopener" aria-label="Order Animated digital invitations on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature">
+          <img src="assets/return-gifts.webp" alt="Personalised return gifts with printed thank-you tags" loading="lazy" width="1536" height="1024" style="object-position:center">
+          <div class="body">
+            <h3>Return gift thank-you tags</h3>
+            <p class="spec">Couple names · cut to shape</p>
+            <p>Small tags with the couple's names and a thank-you line, to tie onto sweet boxes, dry fruit packs and wedding favours.</p>
+            <a class="btn btn-primary" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Wedding%20return%20gift%20tags.%20Wedding%20date%3A%20" target="_blank" rel="noopener" aria-label="Order Return gift thank-you tags on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature">
+          <img src="assets/floral-thank-you-stickers.webp" alt="Floral Thank You round stickers on gift bags and kraft boxes" loading="lazy" width="960" height="640" style="object-position:center">
+          <div class="body">
+            <h3>Floral Thank You stickers</h3>
+            <p class="spec">Round stickers · for favour boxes</p>
+            <p>Seal favour boxes, hamper bags and mehendi kits with floral stickers that make plain packaging look finished.</p>
+            <a class="btn btn-primary" href="https://www.amazon.in/dp/B0GZ799T3B" target="_blank" rel="noopener" aria-label="View Floral Thank You stickers on Amazon">View on Amazon</a>
+            <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Floral%20Thank%20You%20stickers%20for%20a%20wedding.%20Wedding%20date%3A%20" target="_blank" rel="noopener" aria-label="Order Floral Thank You stickers on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature">
+          <img src="assets/fridge-magnets.webp" alt="Cut-to-shape printed fridge magnets with quotes and designs" loading="lazy" width="1374" height="1145" style="object-position:center">
+          <div class="body">
+            <h3>Keepsake fridge magnets</h3>
+            <p class="spec">Names, date or photo · cut to shape</p>
+            <p>A magnet with the couple's names, wedding date or a photo, a return gift that stays on guests' fridges for years.</p>
+            <a class="btn btn-primary" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Wedding%20keepsake%20fridge%20magnets.%20Wedding%20date%3A%20" target="_blank" rel="noopener" aria-label="Order Keepsake fridge magnets on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature wedding-more">
+          <div class="body">
+            <h3>More for your wedding</h3>
+            <p>Tell us what else you need and we will design it to match your invitation.</p>
+            <ul>
+              <li>Save the date cards</li>
+              <li>Shagun envelopes with your names</li>
+              <li>Engagement, mehendi, haldi and sangeet invites</li>
+              <li>RSVP and reception cards</li>
+              <li>Menu cards and table name cards</li>
+              <li>Bulk orders for wedding planners and decorators</li>
+            </ul>
+            <a class="btn btn-primary" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%20wedding%20stationery.%20Wedding%20date%3A%20" target="_blank" rel="noopener">Ask on WhatsApp</a>
+          </div>
+        </article>
+      </div>
+      <ol class="wedding-steps">
+        <li><h3>Share your details</h3><p>Send us the names, date, venue, number of guests and any theme or colours you like.</p></li>
+        <li><h3>Approve the design</h3><p>We design your invitation and send you a preview. We print only after you are happy with it.</p></li>
+        <li><h3>We print and deliver</h3><p>Your order is printed in full colour and delivered locally in Goa or shipped across India, usually within 5 to 6 days of approval.</p></li>
+      </ol>
+      <div class="wedding-cta">
+        <a class="btn btn-primary" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20a%20quote%20for%20wedding%20invitations.%20Wedding%20date%3A%20" target="_blank" rel="noopener">Get a wedding quote on WhatsApp</a>
+        <a class="btn btn-ghost" href="mailto:creativeprints1403@gmail.com?subject=Wedding%20invitation%20enquiry">Email us</a>
+      </div>
+    </div>
+  </section>
+
   <section id="services" class="alt">
     <div class="wrap">
       <div class="section-head">
@@ -932,6 +1031,7 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
         <details><summary>Do you deliver across India?</summary><p>Yes. We are based in Goa and deliver all over India. Order directly on WhatsApp, or buy on Amazon.in for secure checkout and tracked delivery.</p></details>
         <details><summary>Can you customise a design with my names, photo or theme?</summary><p>Yes. Every piece is designed by us, so we can add names, dates, photos, colours or a theme of your choice. Message us on WhatsApp with your idea.</p></details>
         <details><summary>How do I place an order?</summary><p>WhatsApp, call or email us to order directly, or order on Amazon.in and add your details in the customisation box.</p></details>
+        <details><summary>Do you design and print wedding invitations?</summary><p>Yes. We design printed and animated digital wedding invitations with your names, date, venue and family details, plus matching shagun envelopes, thank-you tags, stickers and keepsake magnets. Message us on WhatsApp with your wedding date and guest count for designs and a price.</p></details>
         <details><summary>Do you take bulk orders for schools, events and businesses?</summary><p>Yes. We print in bulk for schools, playschools, weddings, parties and businesses, including educational charts, name tags, invitations, return gift tags and visiting cards.</p></details>
         <details><summary>How much do your products cost?</summary><p>Prices depend on the design, size and quantity. Message us on <a href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20ask%20about%20prices." target="_blank" rel="noopener">WhatsApp</a> or <a href="mailto:creativeprints1403@gmail.com?subject=Price%20enquiry">email us</a> with what you need and we will send you a price. Amazon listings show their prices on Amazon.in.</p></details>
         <details><summary>How long does an order take?</summary><p>Standard delivery takes 5 to 6 days. Large or fully custom orders can take longer, so tell us when you need it and we will confirm a delivery date before we start printing.</p></details>
