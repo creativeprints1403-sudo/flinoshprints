@@ -44,6 +44,16 @@ def status(container, token):
         return json.load(r).get("status_code")
 
 
+def check(user, token):
+    """Fail early, with a clear message, if the id or token is wrong."""
+    q = urllib.parse.urlencode({"fields": "username", "access_token": token})
+    try:
+        with urllib.request.urlopen(f"{API}/{user}?{q}", timeout=60) as r:
+            print(f"Connected to Instagram as @{json.load(r).get('username')}.")
+    except urllib.error.HTTPError as e:
+        sys.exit(f"Can't reach the Instagram account ({e.code}): {e.read().decode()[:500]}")
+
+
 def refresh(token):
     """Extend an Instagram-login token's 60-day life; failure isn't fatal."""
     q = urllib.parse.urlencode({"grant_type": "ig_refresh_token", "access_token": token})
@@ -65,6 +75,7 @@ def main():
     if token.startswith("IG"):
         API = IG_API
         refresh(token)
+    check(user, token)
     queue = json.loads(QUEUE.read_text())
     posted = json.loads(POSTED.read_text()) if POSTED.exists() else []
     done = {p["key"] for p in posted}
