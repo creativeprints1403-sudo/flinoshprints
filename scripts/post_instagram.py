@@ -9,7 +9,8 @@ lapse) or from Facebook login (a Page token, uses graph.facebook.com).
 Without them it does nothing.
 
 Posts at most one entry per run: the oldest entry whose date (IST) is today
-or earlier and that isn't yet in social/instagram-posted.json.
+or up to STALE_DAYS earlier and that isn't yet in social/instagram-posted.json.
+Older missed entries are skipped, since their order-by dates may have passed.
 """
 import json
 import os
@@ -26,6 +27,7 @@ POSTED = ROOT / "social" / "instagram-posted.json"
 API = "https://graph.facebook.com/v21.0"
 IG_API = "https://graph.instagram.com/v21.0"
 IST = timezone(timedelta(hours=5, minutes=30))
+STALE_DAYS = 2
 
 
 def call(path, params):
@@ -79,9 +81,10 @@ def main():
     queue = json.loads(QUEUE.read_text())
     posted = json.loads(POSTED.read_text()) if POSTED.exists() else []
     done = {p["key"] for p in posted}
-    today = datetime.now(IST).date().isoformat()
+    now = datetime.now(IST).date()
+    today, oldest = now.isoformat(), (now - timedelta(days=STALE_DAYS)).isoformat()
     due = [p for p in sorted(queue, key=lambda p: p["date"])
-           if p["date"] <= today and p["date"] + p["image"] not in done]
+           if oldest <= p["date"] <= today and p["date"] + p["image"] not in done]
     if not due:
         print(f"Nothing due on {today}.")
         return
