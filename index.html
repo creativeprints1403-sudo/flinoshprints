@@ -209,9 +209,12 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .group-label { font-family: var(--font-mono); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--magenta); }
 .wedding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 @media (max-width: 1000px) { .wedding-grid { grid-template-columns: repeat(2, 1fr); } }
-.wedding-more { background: var(--paper-2); }
+.wedding-more { background: var(--paper-2); grid-column: 1 / -1; }
+.wedding-more ul { columns: 2; column-gap: 32px; display: block; }
+.wedding-more li { margin-bottom: 6px; break-inside: avoid; }
+@media (max-width: 700px) { .wedding-more ul { columns: 1; } }
 .wedding-more .body > p { flex: 0 0 auto; }
-.wedding-more ul { margin: 0; padding-left: 1.1em; color: var(--ink-soft); display: grid; gap: 6px; }
+.wedding-more ul { margin: 0; padding-left: 1.1em; color: var(--ink-soft); display: block; }
 .wedding-more .btn { margin-top: auto; }
 .wedding-steps { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; counter-reset: wstep; }
 .wedding-steps li { counter-increment: wstep; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
@@ -220,6 +223,8 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .wedding-steps p { margin: 0; color: var(--ink-soft); }
 .wedding-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
 @media (max-width: 700px) { .wedding-grid { grid-template-columns: 1fr; gap: 16px; } .wedding-steps { grid-template-columns: 1fr; gap: 14px; } .wedding-cta .btn { width: 100%; justify-content: center; text-align: center; } }
+.variants.env { flex-wrap: wrap; }
+.variants.env img { width: 64px; height: 38px; object-fit: cover; }
 .ideas-link { margin: 0 0 14px; font-weight: 700; }
 .ideas-link a { color: var(--magenta); }
 .product .body > p.also-link { flex: 0; font-weight: 700; font-size: .9rem; display: block; }
@@ -464,18 +469,75 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
       <div class="section-head">
         <span class="eyebrow">Festive picks</span>
         <h2>Made for the festive season</h2>
-        <p>Gift tags, greeting cards, bookmarks and handmade rakhis for Diwali, Ganesh Chaturthi, Teachers' Day and Raksha Bandhan, to add a festive finish to gift boxes, mithai boxes and hampers, plus everyday bookmarks and stickers.</p>
+        <p>Shagun envelopes, gift tags, greeting cards, bookmarks and handmade rakhis for weddings, Diwali, Ganesh Chaturthi, Teachers' Day and Raksha Bandhan, to add a festive finish to gift boxes, mithai boxes and hampers, plus everyday bookmarks and stickers.</p>
       </div>
       <!-- Links go to the Amazon store until each listing link is added -->
       <div class="festive-bar">
         <div class="tabs" role="tablist" aria-label="Festivals">
-          <button type="button" class="tab" role="tab" id="tab-diwali" aria-controls="panel-diwali" aria-selected="true">Diwali</button>
+          <button type="button" class="tab" role="tab" id="tab-envelopes" aria-controls="panel-envelopes" aria-selected="true">Shagun envelopes</button>
+          <button type="button" class="tab" role="tab" id="tab-diwali" aria-controls="panel-diwali" aria-selected="false">Diwali</button>
           <button type="button" class="tab" role="tab" id="tab-ganesh" aria-controls="panel-ganesh" aria-selected="false">Ganesh Chaturthi</button>
           <button type="button" class="tab" role="tab" id="tab-teachers" aria-controls="panel-teachers" aria-selected="false">Teachers' Day</button>
           <button type="button" class="tab" role="tab" id="tab-rakhi" aria-controls="panel-rakhi" aria-selected="false">Raksha Bandhan</button>
           <button type="button" class="tab" role="tab" id="tab-everyday" aria-controls="panel-everyday" aria-selected="false">Bookmarks &amp; stickers</button>
         </div>
         <div class="arrows" aria-hidden="true"><button type="button" class="arrow" data-dir="-1" tabindex="-1">&#8249;</button><button type="button" class="arrow" data-dir="1" tabindex="-1">&#8250;</button></div>
+      </div>
+      <div class="feature-group" id="panel-envelopes" role="tabpanel" aria-labelledby="tab-envelopes">
+        <h3 class="group-label">Shagun envelopes</h3>
+        <p class="ideas-link">New: money envelopes in 5 designs, sold in sets of 5 · <a href="ideas/wedding-stationery-ideas.html">Wedding stationery ideas</a></p>
+        <div class="features">
+        <article class="feature">
+          <img src="assets/envelope-champagne-gold-leaf.webp" alt="Two champagne gold leaf shagun envelopes, front and back, by Flinosh Prints" loading="lazy" width="1200" height="900">
+          <div class="body">
+            <h3>Champagne Gold Leaf Shagun Envelopes</h3>
+            <p class="spec">Set of 5 · 7 × 3 in · 300 GSM card</p>
+            <p>Champagne beige envelopes covered in shimmering gold leaves, a classic choice for weddings and family functions.</p>
+            <a class="btn btn-primary" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener" aria-label="Shop Champagne Gold Leaf shagun envelopes on Amazon">Shop on Amazon</a>
+            <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Champagne%20Gold%20Leaf%20Shagun%20Envelopes%20%28set%20of%205%29.%20Quantity%3A%20" target="_blank" rel="noopener" aria-label="Order Champagne Gold Leaf shagun envelopes on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature">
+          <img src="assets/envelope-pink-moroccan-trellis.webp" alt="Two pink moroccan trellis shagun envelopes, front and back, by Flinosh Prints" loading="lazy" width="1200" height="900">
+          <div class="body">
+            <h3>Pink Moroccan Trellis Shagun Envelopes</h3>
+            <p class="spec">Set of 5 · 7 × 3 in · 300 GSM card</p>
+            <p>Rose pink envelopes with a gold Moroccan trellis, bright and festive for weddings, birthdays and Raksha Bandhan.</p>
+            <a class="btn btn-primary" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener" aria-label="Shop Pink Moroccan Trellis shagun envelopes on Amazon">Shop on Amazon</a>
+            <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Pink%20Moroccan%20Trellis%20Shagun%20Envelopes%20%28set%20of%205%29.%20Quantity%3A%20" target="_blank" rel="noopener" aria-label="Order Pink Moroccan Trellis shagun envelopes on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature">
+          <img src="assets/envelope-lavender-moroccan-trellis.webp" alt="Two lavender moroccan trellis shagun envelopes, front and back, by Flinosh Prints" loading="lazy" width="1200" height="900">
+          <div class="body">
+            <h3>Lavender Moroccan Trellis Shagun Envelopes</h3>
+            <p class="spec">Set of 5 · 7 × 3 in · 300 GSM card</p>
+            <p>Soft lavender envelopes with a gold Moroccan trellis, an elegant pick for engagements and receptions.</p>
+            <a class="btn btn-primary" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener" aria-label="Shop Lavender Moroccan Trellis shagun envelopes on Amazon">Shop on Amazon</a>
+            <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Lavender%20Moroccan%20Trellis%20Shagun%20Envelopes%20%28set%20of%205%29.%20Quantity%3A%20" target="_blank" rel="noopener" aria-label="Order Lavender Moroccan Trellis shagun envelopes on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature">
+          <img src="assets/envelope-magenta-gold-leaf.webp" alt="Two magenta gold leaf shagun envelopes, front and back, by Flinosh Prints" loading="lazy" width="1200" height="900">
+          <div class="body">
+            <h3>Magenta Gold Leaf Shagun Envelopes</h3>
+            <p class="spec">Set of 5 · 7 × 3 in · 300 GSM card</p>
+            <p>Rich magenta envelopes with gold and green leaves, bold and celebratory for mehendi, sangeet and Diwali.</p>
+            <a class="btn btn-primary" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener" aria-label="Shop Magenta Gold Leaf shagun envelopes on Amazon">Shop on Amazon</a>
+            <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Magenta%20Gold%20Leaf%20Shagun%20Envelopes%20%28set%20of%205%29.%20Quantity%3A%20" target="_blank" rel="noopener" aria-label="Order Magenta Gold Leaf shagun envelopes on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        <article class="feature">
+          <img src="assets/envelope-turquoise-gold-swirl.webp" alt="Two turquoise gold swirl shagun envelopes, front and back, by Flinosh Prints" loading="lazy" width="1200" height="900">
+          <div class="body">
+            <h3>Turquoise Gold Swirl Shagun Envelopes</h3>
+            <p class="spec">Set of 5 · 7 × 3 in · 300 GSM card</p>
+            <p>Turquoise envelopes with flowing gold swirls, a fresh, regal look for any celebration.</p>
+            <a class="btn btn-primary" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener" aria-label="Shop Turquoise Gold Swirl shagun envelopes on Amazon">Shop on Amazon</a>
+            <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Turquoise%20Gold%20Swirl%20Shagun%20Envelopes%20%28set%20of%205%29.%20Quantity%3A%20" target="_blank" rel="noopener" aria-label="Order Turquoise Gold Swirl shagun envelopes on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
+        </div>
       </div>
       <div class="feature-group" id="panel-diwali" role="tabpanel" aria-labelledby="tab-diwali">
         <h3 class="group-label">Diwali</h3>
@@ -909,13 +971,22 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
             <a class="btn btn-primary" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Wedding%20keepsake%20fridge%20magnets.%20Wedding%20date%3A%20" target="_blank" rel="noopener" aria-label="Order Keepsake fridge magnets on WhatsApp">Order on WhatsApp</a>
           </div>
         </article>
+        <article class="feature">
+          <img src="assets/envelope-champagne-gold-leaf.webp" alt="Champagne gold leaf shagun envelopes, front and back" loading="lazy" width="1200" height="900">
+          <div class="body">
+            <h3>Shagun envelopes</h3>
+            <p class="spec">Set of 5 · 7 × 3 in · 5 designs</p>
+            <p>Gold-pattern money envelopes on 300 GSM card, in champagne, pink, lavender, magenta and turquoise, for giving and receiving shagun in style.</p>
+            <a class="btn btn-primary" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener" aria-label="Shop shagun envelopes on Amazon">Shop on Amazon</a>
+            <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Wedding%20shagun%20envelopes%20%28set%20of%205%29.%20Design%3A%20" target="_blank" rel="noopener" aria-label="Order shagun envelopes on WhatsApp">Order on WhatsApp</a>
+          </div>
+        </article>
         <article class="feature wedding-more">
           <div class="body">
             <h3>More for your wedding</h3>
             <p>Tell us what else you need and we will design it to match your invitation.</p>
             <ul>
               <li>Save the date cards</li>
-              <li>Shagun envelopes with your names</li>
               <li>Engagement, mehendi, haldi and sangeet invites</li>
               <li>RSVP and reception cards</li>
               <li>Menu cards and table name cards</li>
@@ -1013,10 +1084,11 @@ footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-cont
           </div>
         </article>
         <article class="product">
-          <div class="photo has-img"><span class="swatch"></span><img src="assets/envelopes.webp" alt="Pink Kanjak Pooja money envelopes with matching thank-you tags, by Flinosh Prints" loading="lazy" width="960" height="640" style="object-position:center"></div>
+          <div class="photo has-img"><span class="swatch"></span><img src="assets/envelope-pink-moroccan-trellis.webp" alt="Pink and gold Moroccan trellis shagun envelopes, by Flinosh Prints" loading="lazy" width="1200" height="900" style="object-position:center"></div>
           <div class="body">
             <h3>Envelopes</h3>
-            <p>Gift and money envelopes (shagun envelopes) for poojas, weddings, Diwali and other festivals, with matching thank-you tags. Personalise them with names or a family message for a finished look on every gift.</p>
+            <p>Gift and money envelopes (shagun envelopes) for weddings, poojas, Diwali and other festivals. Our new gold-pattern envelopes come in sets of 5, 7 × 3 inches, on 300 GSM card, in five designs. We also make Kanjak Pooja envelopes with matching thank-you tags, and can personalise envelopes with names or a family message.</p>
+            <div class="variants env"><span>Also in</span><img src="assets/envelope-champagne-gold-leaf-thumb.webp" alt="Champagne Gold Leaf envelope design" loading="lazy" width="160" height="96"><img src="assets/envelope-lavender-moroccan-trellis-thumb.webp" alt="Lavender Moroccan Trellis envelope design" loading="lazy" width="160" height="96"><img src="assets/envelope-magenta-gold-leaf-thumb.webp" alt="Magenta Gold Leaf envelope design" loading="lazy" width="160" height="96"><img src="assets/envelope-turquoise-gold-swirl-thumb.webp" alt="Turquoise Gold Swirl envelope design" loading="lazy" width="160" height="96"></div>
             <a class="btn btn-primary" href="https://www.amazon.in/l/27943762031?me=A27RXOS2FK94TR" target="_blank" rel="noopener" aria-label="Shop envelopes on Amazon">Shop on Amazon</a>
             <a class="btn btn-ghost" href="https://wa.me/919579306816?text=Hi%20Flinosh%20Prints%2C%20I%27d%20like%20to%20order%3A%20Envelopes.%20Quantity%3A%20" target="_blank" rel="noopener" aria-label="Order Envelopes on WhatsApp">Order on WhatsApp</a>
           </div>
