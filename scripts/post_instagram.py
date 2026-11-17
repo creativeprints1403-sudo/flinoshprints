@@ -16,6 +16,7 @@ import json
 import os
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -31,6 +32,10 @@ IST = timezone(timedelta(hours=5, minutes=30))
 STALE_DAYS = 2
 
 
+class ApiError(Exception):
+    pass
+
+
 def call(path, params):
     data = urllib.parse.urlencode(params).encode()
     req = urllib.request.Request(f"{API}/{path}", data=data, method="POST")
@@ -38,7 +43,7 @@ def call(path, params):
         with urllib.request.urlopen(req, timeout=60) as r:
             return json.load(r)
     except urllib.error.HTTPError as e:
-        sys.exit(f"Instagram API error {e.code}: {e.read().decode()[:500]}")
+        raise ApiError(f"Instagram API error {e.code}: {e.read().decode()[:500]}")
 
 
 def status(container, token):
@@ -79,7 +84,8 @@ def next_product(posted):
     photo that went out in the last 3 days."""
     if not PRODUCTS.exists():
         return None
-    products = json.loads(PRODUCTS.read_text())
+    today = datetime.now(IST).date().isoformat()
+    products = [p for p in json.loads(PRODUCTS.read_text()) if p.get("until", "9999") >= today]
     cutoff = (datetime.now(IST) - timedelta(days=3)).isoformat()
     recent = [p["key"] for p in posted if p["posted_at"] >= cutoff]
     last = {}
@@ -112,15 +118,32 @@ def main():
     today, oldest = now.isoformat(), (now - timedelta(days=STALE_DAYS)).isoformat()
     due = [p for p in sorted(queue, key=lambda p: p["date"])
            if oldest <= p["date"] <= today and p["date"] + media(p) not in done]
-    if due:
-        post = due[0]
-        key = post["date"] + media(post)
-    else:
-        post = next_product(posted)
-        if not post:
-            print(f"Nothing due on {today}.")
-            return
-        key = "product:" + media(post)
+    for _ in range(3):  # a broken photo is logged and skipped, then the next one is tried
+        if due:
+            post = due.pop(0)
+            key = post["date"] + media(post)
+        else:
+            post = next_product(posted)
+            if not post:
+                print(f"Nothing due on {today}.")
+                return
+            key = "product:" + media(post)
+        stamp = datetime.now(IST).isoformat(timespec="minutes")
+        try:
+            media_id = publish(user, token, post)
+        except (ApiError, KeyError) as e:
+            print(f"Could not post {key}: {e}")
+            posted.append({"key": key, "failed": True, "posted_at": stamp})
+            POSTED.write_text(json.dumps(posted, indent=2) + "\n")
+            continue
+        posted.append({"key": key, "media_id": media_id, "posted_at": stamp})
+        POSTED.write_text(json.dumps(posted, indent=2) + "\n")
+        print(f"Posted {key} as {media_id}.")
+        return
+    sys.exit("Three posts in a row failed; see above.")
+
+
+def publish(user, token, post):
     params = {"caption": post["caption"], "access_token": token}
     if post.get("video"):
         params.update(media_type="REELS", video_url=post["video"], share_to_feed="true")
@@ -131,11 +154,7 @@ def main():
         if status(container, token) in ("FINISHED", None):
             break
         time.sleep(5)
-    media_id = call(f"{user}/media_publish", {"creation_id": container, "access_token": token})["id"]
-    posted.append({"key": key, "media_id": media_id,
-                   "posted_at": datetime.now(IST).isoformat(timespec="minutes")})
-    POSTED.write_text(json.dumps(posted, indent=2) + "\n")
-    print(f"Posted {key} as {media_id}.")
+    return call(f"{user}/media_publish", {"creation_id": container, "access_token": token})["id"]
 
 
 if __name__ == "__main__":

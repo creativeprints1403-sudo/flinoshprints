@@ -2,8 +2,7 @@ name: Instagram posts
 
 on:
   schedule:
-    - cron: "30 4 * * *"   # every day at 10:00 IST
-    - cron: "30 13 * * *"  # every day at 19:00 IST
+    - cron: "30 3,5,7,9,11,13 * * *"  # 6 a day: 9, 11 am, 1, 3, 5, 7 pm IST
   workflow_dispatch:
     inputs:
       check_only:
