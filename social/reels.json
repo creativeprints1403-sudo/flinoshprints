@@ -306,5 +306,216 @@
       ],
       "foot": "Bulk orders for shops and offices"
     }
+  },
+  {
+    "name": "adcut-how-it-works",
+    "brand": {
+      "bg": [
+        247,
+        240,
+        229
+      ],
+      "end_bg": [
+        247,
+        240,
+        229
+      ],
+      "ink": [
+        40,
+        28,
+        20
+      ],
+      "accent": [
+        168,
+        122,
+        42
+      ],
+      "button": [
+        168,
+        122,
+        42
+      ],
+      "logo": null,
+      "footer": "adcut.onrender.com",
+      "wordmark": "AdCut"
+    },
+    "end": {
+      "title": "Make your first ad free",
+      "lines": [
+        "3 free videos · no card",
+        "adcut.onrender.com"
+      ],
+      "foot": "For shops, salons, cafés, gyms & clinics"
+    },
+    "scenes": [
+      {
+        "big": [
+          "Your photos in."
+        ],
+        "subline": "straight from your phone gallery"
+      },
+      {
+        "image": "assets/gift-tags-2.webp",
+        "headline": "1. Add your photos",
+        "subline": "products, shop front, happy customers"
+      },
+      {
+        "image": "assets/gift-tags-2.webp",
+        "headline": "2. Tap “AI write”",
+        "subline": "it writes the text for every photo",
+        "overlay": {
+          "text": "Personalised gift tags"
+        }
+      },
+      {
+        "big": [
+          "Promo video out."
+        ],
+        "subline": "Reels · WhatsApp Status · Shorts"
+      }
+    ]
+  },
+  {
+    "name": "adcut-languages",
+    "brand": {
+      "bg": [
+        247,
+        240,
+        229
+      ],
+      "end_bg": [
+        247,
+        240,
+        229
+      ],
+      "ink": [
+        40,
+        28,
+        20
+      ],
+      "accent": [
+        168,
+        122,
+        42
+      ],
+      "button": [
+        168,
+        122,
+        42
+      ],
+      "logo": null,
+      "footer": "adcut.onrender.com",
+      "wordmark": "AdCut"
+    },
+    "end": {
+      "title": "Make your first ad free",
+      "lines": [
+        "3 free videos · no card",
+        "adcut.onrender.com"
+      ],
+      "foot": "For shops, salons, cafés, gyms & clinics"
+    },
+    "scenes": [
+      {
+        "big": [
+          "Ads in",
+          "your language."
+        ],
+        "subline": "Hindi, Marathi, Konkani, Tamil + 9 more"
+      },
+      {
+        "image": "assets/fridge-magnets.webp",
+        "headline": "AI sees your products",
+        "subline": "and writes a line for each photo",
+        "overlay": {
+          "text": "Gifts they see every day"
+        }
+      },
+      {
+        "image": "assets/educational-charts.webp",
+        "headline": "Your logo on every video",
+        "subline": "plus a clear call to action",
+        "overlay": {
+          "text": "Bright learning charts"
+        }
+      },
+      {
+        "big": [
+          "2 minutes.",
+          "No editor needed."
+        ]
+      }
+    ]
+  },
+  {
+    "name": "adcut-pricing",
+    "brand": {
+      "bg": [
+        247,
+        240,
+        229
+      ],
+      "end_bg": [
+        247,
+        240,
+        229
+      ],
+      "ink": [
+        40,
+        28,
+        20
+      ],
+      "accent": [
+        168,
+        122,
+        42
+      ],
+      "button": [
+        168,
+        122,
+        42
+      ],
+      "logo": null,
+      "footer": "adcut.onrender.com",
+      "wordmark": "AdCut"
+    },
+    "end": {
+      "title": "Try 3 videos free",
+      "lines": [
+        "No card needed",
+        "adcut.onrender.com"
+      ],
+      "foot": "Pay once · no subscription"
+    },
+    "scenes": [
+      {
+        "big": [
+          "No designer?",
+          "No problem."
+        ],
+        "subline": "make a video ad yourself in 2 minutes"
+      },
+      {
+        "big": [
+          "10 videos",
+          "₹499"
+        ],
+        "subline": "₹50 per video · Starter"
+      },
+      {
+        "big": [
+          "50 videos",
+          "₹1,499"
+        ],
+        "subline": "₹30 per video · best for shops"
+      },
+      {
+        "big": [
+          "200 videos",
+          "₹3,999"
+        ],
+        "subline": "₹20 per video · for agencies"
+      }
+    ]
   }
 ]

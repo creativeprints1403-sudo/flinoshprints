@@ -63,55 +63,95 @@ def centred(draw, y, text, f, fill):
     draw.text(((W - draw.textlength(text, font=f)) / 2, y), text, font=f, fill=fill)
 
 
-def scene_frame(photo, headline, subline, bg, zoom):
+def footer(im, d, brand):
+    if brand.get("logo", "assets/logo-mark.webp"):
+        logo = Image.open(ROOT / brand.get("logo", "assets/logo-mark.webp")).convert("RGBA")
+        logo.thumbnail((84, 84))
+        im.paste(logo, (W // 2 - 230, 1740), logo)
+        d.text((W // 2 - 130, 1752), brand.get("footer", "flinoshprints"), font=font(SANS_BOLD, 46),
+               fill=tuple(brand.get("ink", INK)))
+    else:
+        centred(d, 1752, brand["footer"], font(SANS_BOLD, 46), tuple(brand.get("ink", INK)))
+
+
+def scene_frame(photo, headline, subline, bg, zoom, brand=None, overlay=None, big=None):
+    brand = brand or {}
+    ink, gold = tuple(brand.get("ink", INK)), tuple(brand.get("accent", GOLD))
     im = Image.new("RGB", (W, H), bg)
     d = ImageDraw.Draw(im)
-    centred(d, 210, headline, fit(d, headline, SERIF, 76), INK)
+    if big:  # a text-only scene: big lines in the middle, gently growing
+        y = 760 - 70 * len(big)
+        for i, line in enumerate(big):
+            f = fit(d, line, SANS_BOLD, int(120 * (0.97 + 0.03 * zoom / 1.06)))
+            centred(d, y, line, f, gold if i == len(big) - 1 else ink)
+            y += 150
+        if subline:
+            centred(d, y + 40, subline, fit(d, subline, SANS, 46), ink)
+        footer(im, d, brand)
+        return im
+    centred(d, 210, headline, fit(d, headline, SERIF, 76), ink)
     if subline:
-        centred(d, 320, subline, fit(d, subline, SANS, 44), GOLD)
+        centred(d, 320, subline, fit(d, subline, SANS, 44), gold)
     scale = min(940 / photo.width, 1180 / photo.height) * zoom
     ph = photo.resize((int(photo.width * scale), int(photo.height * scale)), Image.LANCZOS)
-    im.paste(ph, ((W - ph.width) // 2, 460 + (1200 - ph.height) // 2))
-    logo = Image.open(ROOT / "assets" / "logo-mark.webp").convert("RGBA")
-    logo.thumbnail((84, 84))
-    im.paste(logo, (W // 2 - 230, 1740), logo)
-    d.text((W // 2 - 130, 1752), "flinoshprints", font=font(SANS_BOLD, 46), fill=INK)
+    x, y = (W - ph.width) // 2, 460 + (1200 - ph.height) // 2
+    im.paste(ph, (x, y))
+    if overlay:  # an ad-style caption and price on the photo
+        f = fit(d, overlay["text"], SANS_BOLD, 62, ph.width - 80)
+        tw = d.textlength(overlay["text"], font=f)
+        d.rounded_rectangle((W / 2 - tw / 2 - 30, y + ph.height - 190, W / 2 + tw / 2 + 30, y + ph.height - 100),
+                            20, fill=(30, 22, 14))
+        centred(d, y + ph.height - 178, overlay["text"], f, "white")
+        if overlay.get("price"):
+            pf = font(SANS_BOLD, 58)
+            pw = d.textlength(overlay["price"], font=pf)
+            d.rounded_rectangle((x + 30, y + 30, x + 80 + pw, y + 120), 18, fill=(255, 204, 0))
+            d.text((x + 55, y + 42), overlay["price"], font=pf, fill=(30, 22, 14))
+    footer(im, d, brand)
     return im
 
 
-def end_frame(title, lines, foot):
-    im = Image.new("RGB", (W, H), (252, 247, 240))
+def end_frame(title, lines, foot, brand=None):
+    brand = brand or {}
+    ink, gold = tuple(brand.get("ink", INK)), tuple(brand.get("accent", GOLD))
+    pink = tuple(brand.get("button", PINK))
+    im = Image.new("RGB", (W, H), tuple(brand.get("end_bg", (252, 247, 240))))
     d = ImageDraw.Draw(im)
-    logo = Image.open(ROOT / "assets" / "logo-mark.webp").convert("RGBA")
-    logo.thumbnail((220, 220))
-    im.paste(logo, ((W - logo.width) // 2, 430), logo)
-    centred(d, 760, title, fit(d, title, SERIF, 78), INK)
+    if brand.get("logo", "assets/logo-mark.webp"):
+        logo = Image.open(ROOT / brand.get("logo", "assets/logo-mark.webp")).convert("RGBA")
+        logo.thumbnail((220, 220))
+        im.paste(logo, ((W - logo.width) // 2, 430), logo)
+    else:
+        centred(d, 520, brand.get("wordmark", ""), font(SANS_BOLD, 110), ink)
+    centred(d, 760, title, fit(d, title, SERIF, 78), ink)
     y = 920
     for i, line in enumerate(lines):
         f = font(SANS_BOLD, 64 if i == 0 else 52)
         tw = d.textlength(line, font=f)
         if i == 0:
-            d.rounded_rectangle(((W - tw) / 2 - 50, y - 24, (W + tw) / 2 + 50, y + 100), 62, fill=PINK)
+            d.rounded_rectangle(((W - tw) / 2 - 50, y - 24, (W + tw) / 2 + 50, y + 100), 62, fill=pink)
             d.text(((W - tw) / 2, y), line, font=f, fill="white")
         else:
-            d.text(((W - tw) / 2, y + 30), line, font=f, fill=INK)
+            d.text(((W - tw) / 2, y + 30), line, font=f, fill=ink)
         y += 170
-    centred(d, y + 60, foot, fit(d, foot, SANS, 40), GOLD)
+    centred(d, y + 60, foot, fit(d, foot, SANS, 40), gold)
     return im
 
 
 def build(reel):
     frames = []
+    brand = reel.get("brand", {})
     for i, s in enumerate(reel["scenes"]):
-        photo = load(s["image"], s.get("crop"))
-        bg = tuple(s["bg"]) if s.get("bg") else BGS[i % len(BGS)]
+        photo = load(s["image"], s.get("crop")) if s.get("image") else None
+        bg = tuple(s.get("bg") or brand.get("bg") or BGS[i % len(BGS)])
         n = int(SCENE_S * FPS)
-        frames.append([scene_frame(photo, s["headline"], s.get("subline", ""), bg, 1 + 0.06 * k / n)
+        frames.append([scene_frame(photo, s.get("headline", ""), s.get("subline", ""), bg, 1 + 0.06 * k / n,
+                                   brand, s.get("overlay"), s.get("big"))
                        for k in range(n)])
     end = reel.get("end", {})
     frames.append([end_frame(end.get("title", "Order yours today"),
                              end.get("lines", ["WhatsApp 95793 06816", "flinoshprints.com"]),
-                             end.get("foot", "Designed in Goa · delivered across India"))]
+                             end.get("foot", "Designed in Goa · delivered across India"), brand)]
                   * int(END_S * FPS))
     fade = int(FADE_S * FPS)
     out = OUT / f"{reel['name']}.mp4"
