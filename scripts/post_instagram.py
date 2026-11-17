@@ -69,6 +69,11 @@ def refresh(token):
         print(f"Token refresh failed ({e.code}); posting anyway.")
 
 
+def media(entry):
+    """The photo or video URL an entry posts (videos go out as Reels)."""
+    return entry.get("video") or entry["image"]
+
+
 def next_product(posted):
     """The product posted longest ago (never-posted first), skipping any
     photo that went out in the last 3 days."""
@@ -81,10 +86,10 @@ def next_product(posted):
     for i, p in enumerate(posted):
         if p["key"].startswith("product:"):
             last[p["key"][8:]] = i
-    fresh = [p for p in products if not any(k.endswith(p["image"]) for k in recent)]
+    fresh = [p for p in products if not any(k.endswith(media(p)) for k in recent)]
     if not fresh:
         return None
-    return min(fresh, key=lambda p: last.get(p["image"], -1))
+    return min(fresh, key=lambda p: last.get(media(p), -1))
 
 
 def main():
@@ -106,27 +111,31 @@ def main():
     now = datetime.now(IST).date()
     today, oldest = now.isoformat(), (now - timedelta(days=STALE_DAYS)).isoformat()
     due = [p for p in sorted(queue, key=lambda p: p["date"])
-           if oldest <= p["date"] <= today and p["date"] + p["image"] not in done]
+           if oldest <= p["date"] <= today and p["date"] + media(p) not in done]
     if due:
         post = due[0]
-        key = post["date"] + post["image"]
+        key = post["date"] + media(post)
     else:
         post = next_product(posted)
         if not post:
             print(f"Nothing due on {today}.")
             return
-        key = "product:" + post["image"]
-    container = call(f"{user}/media", {"image_url": post["image"], "caption": post["caption"],
-                                       "access_token": token})["id"]
-    for _ in range(12):
+        key = "product:" + media(post)
+    params = {"caption": post["caption"], "access_token": token}
+    if post.get("video"):
+        params.update(media_type="REELS", video_url=post["video"], share_to_feed="true")
+    else:
+        params["image_url"] = post["image"]
+    container = call(f"{user}/media", params)["id"]
+    for _ in range(60 if post.get("video") else 12):
         if status(container, token) in ("FINISHED", None):
             break
         time.sleep(5)
-    media = call(f"{user}/media_publish", {"creation_id": container, "access_token": token})["id"]
-    posted.append({"key": key, "media_id": media,
+    media_id = call(f"{user}/media_publish", {"creation_id": container, "access_token": token})["id"]
+    posted.append({"key": key, "media_id": media_id,
                    "posted_at": datetime.now(IST).isoformat(timespec="minutes")})
     POSTED.write_text(json.dumps(posted, indent=2) + "\n")
-    print(f"Posted {post['image']} as {media}.")
+    print(f"Posted {key} as {media_id}.")
 
 
 if __name__ == "__main__":
