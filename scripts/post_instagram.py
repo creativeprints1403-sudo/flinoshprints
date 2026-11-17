@@ -78,6 +78,9 @@ def main():
         API = IG_API
         refresh(token)
     check(user, token)
+    if os.environ.get("CHECK_ONLY") == "true":
+        print("Check only; nothing posted.")
+        return
     queue = json.loads(QUEUE.read_text())
     posted = json.loads(POSTED.read_text()) if POSTED.exists() else []
     done = {p["key"] for p in posted}
