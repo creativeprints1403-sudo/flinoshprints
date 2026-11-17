@@ -1,0 +1,310 @@
+[
+  {
+    "name": "wedding-invites",
+    "scenes": [
+      {
+        "image": "assets/pins/template-gold-butterfly-wedding-invite.jpg",
+        "crop": [
+          0,
+          110,
+          1000,
+          930
+        ],
+        "headline": "Wedding invitations",
+        "subline": "with your names, date and venue",
+        "bg": [
+          250,
+          244,
+          233
+        ]
+      },
+      {
+        "image": "assets/pins/template-floral-animated-e-invite.jpg",
+        "crop": [
+          0,
+          110,
+          1000,
+          930
+        ],
+        "headline": "Printed or for WhatsApp",
+        "subline": "animated e-invites, lilac or blush",
+        "bg": [
+          240,
+          234,
+          248
+        ]
+      },
+      {
+        "image": "assets/envelope-pink-moroccan-trellis.webp",
+        "headline": "Matching shagun envelopes",
+        "subline": "5 gold-pattern designs",
+        "bg": [
+          251,
+          238,
+          242
+        ]
+      },
+      {
+        "image": "assets/floral-thank-you-stickers.webp",
+        "headline": "Thank-you stickers",
+        "subline": "for favours and return gifts",
+        "bg": [
+          246,
+          240,
+          232
+        ]
+      }
+    ],
+    "end": {
+      "title": "Order your wedding set"
+    }
+  },
+  {
+    "name": "christmas-collection",
+    "scenes": [
+      {
+        "image": "https://m.media-amazon.com/images/I/813XfSjp69L._SL1080_.jpg",
+        "headline": "Christmas gift tags",
+        "subline": "12 watercolour designs",
+        "bg": [
+          238,
+          246,
+          240
+        ]
+      },
+      {
+        "image": "https://m.media-amazon.com/images/I/81WDaaU7HSL._SL1080_.jpg",
+        "headline": "Christmas bookmarks",
+        "subline": "with tassels, set of 4",
+        "bg": [
+          251,
+          238,
+          238
+        ]
+      },
+      {
+        "image": "https://m.media-amazon.com/images/I/71CcoDYkkSL._SL1080_.jpg",
+        "headline": "Poinsettia gift tags",
+        "subline": "premium 300 GSM card",
+        "bg": [
+          238,
+          246,
+          240
+        ]
+      },
+      {
+        "image": "https://m.media-amazon.com/images/I/811m5Voc+mL._SL1080_.jpg",
+        "headline": "Merry Christmas cards",
+        "subline": "Santa and snowman",
+        "bg": [
+          251,
+          238,
+          238
+        ]
+      },
+      {
+        "image": "https://m.media-amazon.com/images/I/81TG2+Oz3yL._SL1080_.jpg",
+        "headline": "Handmade Christmas trees",
+        "subline": "tabletop decor, set of 2",
+        "bg": [
+          238,
+          246,
+          240
+        ]
+      }
+    ],
+    "end": {
+      "title": "Shop the Christmas collection",
+      "lines": [
+        "Search Flinosh Prints on Amazon",
+        "WhatsApp 95793 06816"
+      ],
+      "foot": "Order by 18 December for Christmas delivery"
+    }
+  },
+  {
+    "name": "bookmarks",
+    "scenes": [
+      {
+        "image": "assets/superhero-bookmarks.webp",
+        "headline": "Superhero bookmarks",
+        "subline": "Be Brave · Dream Big"
+      },
+      {
+        "image": "assets/floral-quote-bookmarks.webp",
+        "headline": "Floral quote bookmarks",
+        "subline": "watercolour, set of 4"
+      },
+      {
+        "image": "assets/candle-bookmarks.webp",
+        "headline": "Candle bookmarks",
+        "subline": "a little light for every chapter"
+      },
+      {
+        "image": "assets/restaurant-bookmarks.webp",
+        "headline": "Cafe bookmarks",
+        "subline": "gold on royal colours"
+      },
+      {
+        "image": "assets/teachers-scripture-bookmarks.webp",
+        "headline": "Scripture bookmarks",
+        "subline": "Bible verses, set of 4"
+      }
+    ],
+    "end": {
+      "title": "A bookmark for every reader",
+      "lines": [
+        "Shop on Amazon",
+        "WhatsApp 95793 06816"
+      ],
+      "foot": "Link in bio · names printed on request"
+    }
+  },
+  {
+    "name": "shagun-envelopes",
+    "scenes": [
+      {
+        "image": "assets/envelope-champagne-gold-leaf.webp",
+        "headline": "Champagne gold leaf",
+        "subline": "shagun envelopes, set of 5"
+      },
+      {
+        "image": "assets/envelope-pink-moroccan-trellis.webp",
+        "headline": "Pink Moroccan trellis",
+        "subline": "7 × 3 in · 300 GSM card"
+      },
+      {
+        "image": "assets/envelope-lavender-moroccan-trellis.webp",
+        "headline": "Lavender Moroccan trellis",
+        "subline": "for weddings and poojas"
+      },
+      {
+        "image": "assets/envelope-magenta-gold-leaf.webp",
+        "headline": "Magenta gold leaf",
+        "subline": "bold and festive"
+      },
+      {
+        "image": "assets/envelope-turquoise-gold-swirl.webp",
+        "headline": "Turquoise gold swirl",
+        "subline": "for every blessing"
+      }
+    ],
+    "end": {
+      "title": "Give shagun in style",
+      "lines": [
+        "Shop on Amazon",
+        "WhatsApp 95793 06816"
+      ],
+      "foot": "Bulk rates for planners and decorators"
+    }
+  },
+  {
+    "name": "stickers-and-tags",
+    "scenes": [
+      {
+        "image": "assets/floral-thank-you-stickers.webp",
+        "headline": "Thank-you stickers",
+        "subline": "30 floral designs"
+      },
+      {
+        "image": "assets/coffee-tea-stickers.webp",
+        "headline": "Coffee & chai stickers",
+        "subline": "12 round 2-inch stickers"
+      },
+      {
+        "image": "assets/gift-tags-2.webp",
+        "headline": "Gift & thank-you tags",
+        "subline": "cut to shape, ready to tie"
+      },
+      {
+        "image": "assets/cards.webp",
+        "headline": "Mini cards",
+        "subline": "for every occasion"
+      }
+    ],
+    "end": {
+      "title": "Finish every gift beautifully",
+      "lines": [
+        "Shop on Amazon",
+        "WhatsApp 95793 06816"
+      ],
+      "foot": "Perfect for small businesses and hampers"
+    }
+  },
+  {
+    "name": "kids-gifts",
+    "scenes": [
+      {
+        "image": "assets/superhero-bookmarks.webp",
+        "headline": "Superhero bookmarks",
+        "subline": "return gifts kids use"
+      },
+      {
+        "image": "assets/educational-charts.webp",
+        "headline": "Learning charts",
+        "subline": "fruits, animals and more"
+      },
+      {
+        "image": "assets/return-gifts.webp",
+        "headline": "Custom return gifts",
+        "subline": "made to your party theme"
+      },
+      {
+        "image": "assets/fridge-magnets.webp",
+        "headline": "Fridge magnets",
+        "subline": "a gift seen every day"
+      }
+    ],
+    "end": {
+      "title": "Gifts kids love",
+      "lines": [
+        "Shop on Amazon",
+        "WhatsApp 95793 06816"
+      ],
+      "foot": "Birthdays · class gifts · return gifts"
+    }
+  },
+  {
+    "name": "calendars-2027",
+    "scenes": [
+      {
+        "image": "https://m.media-amazon.com/images/I/716OG833jzL._SL1080_.jpg",
+        "headline": "2027 desk calendars",
+        "subline": "with your shop name and logo",
+        "bg": [
+          250,
+          244,
+          233
+        ]
+      },
+      {
+        "image": "https://m.media-amazon.com/images/I/71upMzv1oUL._SL1080_.jpg",
+        "headline": "Spiral desk calendars",
+        "subline": "A5 and A6 · 300 GSM card",
+        "bg": [
+          240,
+          234,
+          248
+        ]
+      },
+      {
+        "image": "https://m.media-amazon.com/images/I/81tkwhFRQdL._SL1080_.jpg",
+        "headline": "New Year bookmarks",
+        "subline": "with tassels, set of 4",
+        "bg": [
+          250,
+          244,
+          233
+        ]
+      }
+    ],
+    "end": {
+      "title": "Gifts your customers keep all year",
+      "lines": [
+        "WhatsApp 95793 06816",
+        "flinoshprints.com"
+      ],
+      "foot": "Bulk orders for shops and offices"
+    }
+  }
+]

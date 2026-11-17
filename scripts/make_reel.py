@@ -1,63 +1,76 @@
-"""Make a 9:16 Instagram Reel (1080x1920 MP4) from product photos.
+"""Make 9:16 Instagram Reels (1080x1920 MP4) from product photos.
 
-Each scene is a photo on a soft background with a headline, shown with a slow
-zoom, followed by an end card saying how to order. Needs Pillow and ffmpeg.
+Reels are described in social/reels.json. Each scene is a photo (a site path
+or an https URL, e.g. an Amazon listing photo) on a soft background with a
+headline, shown with a slow zoom, then an end card saying how to order.
+Needs Pillow and ffmpeg.
 
-    python3 scripts/make_reel.py wedding OUTPUT.mp4
+    python3 scripts/make_reel.py            # build every reel not built yet
+    python3 scripts/make_reel.py NAME ...   # (re)build these reels
 """
+import io
+import json
 import subprocess
 import sys
 import tempfile
+import urllib.request
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
+REELS = ROOT / "social" / "reels.json"
+OUT = ROOT / "assets" / "reels"
 W, H, FPS = 1080, 1920, 30
-SERIF = "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
-SANS = "/usr/share/fonts/opentype/inter/Inter-SemiBold.otf"
-SANS_BOLD = "/usr/share/fonts/opentype/inter/Inter-Bold.otf"
+SCENE_S, END_S, FADE_S = 2.8, 3.6, 0.5
 INK, PINK, GOLD = (52, 36, 24), (224, 26, 130), (176, 132, 52)
+BGS = [(250, 244, 233), (240, 234, 248), (251, 238, 242), (236, 245, 240), (246, 240, 232)]
 
-# (photo, crop box or None, headline, subline, background)
-REELS = {
-    "wedding": {
-        "scenes": [
-            ("assets/pins/template-gold-butterfly-wedding-invite.jpg", (0, 110, 1000, 930),
-             "Wedding invitations", "with your names, date and venue", (250, 244, 233)),
-            ("assets/pins/template-floral-animated-e-invite.jpg", (0, 110, 1000, 930),
-             "Printed or for WhatsApp", "animated e-invites, lilac or blush", (240, 234, 248)),
-            ("assets/envelope-pink-moroccan-trellis.webp", None,
-             "Matching shagun envelopes", "5 gold-pattern designs", (251, 238, 242)),
-            ("assets/floral-thank-you-stickers.webp", None,
-             "Thank-you stickers", "for favours and return gifts", (246, 240, 232)),
-        ],
-        "end": ("Order your wedding set",
-                ["WhatsApp 95793 06816", "flinoshprints.com"],
-                "Designed in Goa · delivered across India"),
-    },
-}
-SCENE_S, END_S, FADE_S = 3.2, 3.6, 0.5
+
+def first(*paths):
+    return next((p for p in paths if Path(p).exists()), paths[-1])
+
+
+SERIF = first("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf")
+SANS = first("/usr/share/fonts/opentype/inter/Inter-SemiBold.otf",
+             "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+SANS_BOLD = first("/usr/share/fonts/opentype/inter/Inter-Bold.otf",
+                  "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
 
 
 def font(path, size):
     return ImageFont.truetype(path, size)
 
 
+def load(src, crop=None):
+    if src.startswith("http"):
+        req = urllib.request.Request(src, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            im = Image.open(io.BytesIO(r.read()))
+    else:
+        im = Image.open(ROOT / src)
+    im = im.convert("RGB")
+    return im.crop(tuple(crop)) if crop else im
+
+
+def fit(draw, text, path, size, width=980):
+    while draw.textlength(text, font=font(path, size)) > width and size > 30:
+        size -= 2
+    return font(path, size)
+
+
 def centred(draw, y, text, f, fill):
-    w = draw.textlength(text, font=f)
-    draw.text(((W - w) / 2, y), text, font=f, fill=fill)
+    draw.text(((W - draw.textlength(text, font=f)) / 2, y), text, font=f, fill=fill)
 
 
 def scene_frame(photo, headline, subline, bg, zoom):
     im = Image.new("RGB", (W, H), bg)
     d = ImageDraw.Draw(im)
-    centred(d, 210, headline, font(SERIF, 76 if len(headline) < 22 else 64), INK)
-    centred(d, 320, subline, font(SANS, 44), GOLD)
-    box_w = int(940 * zoom)
-    ph = photo.resize((box_w, int(photo.height * box_w / photo.width)), Image.LANCZOS)
-    if ph.height > 1180 * zoom:
-        ph = ph.resize((int(ph.width * 1180 * zoom / ph.height), int(1180 * zoom)), Image.LANCZOS)
+    centred(d, 210, headline, fit(d, headline, SERIF, 76), INK)
+    if subline:
+        centred(d, 320, subline, fit(d, subline, SANS, 44), GOLD)
+    scale = min(940 / photo.width, 1180 / photo.height) * zoom
+    ph = photo.resize((int(photo.width * scale), int(photo.height * scale)), Image.LANCZOS)
     im.paste(ph, ((W - ph.width) // 2, 460 + (1200 - ph.height) // 2))
     logo = Image.open(ROOT / "assets" / "logo-mark.webp").convert("RGBA")
     logo.thumbnail((84, 84))
@@ -72,7 +85,7 @@ def end_frame(title, lines, foot):
     logo = Image.open(ROOT / "assets" / "logo-mark.webp").convert("RGBA")
     logo.thumbnail((220, 220))
     im.paste(logo, ((W - logo.width) // 2, 430), logo)
-    centred(d, 760, title, font(SERIF, 78), INK)
+    centred(d, 760, title, fit(d, title, SERIF, 78), INK)
     y = 920
     for i, line in enumerate(lines):
         f = font(SANS_BOLD, 64 if i == 0 else 52)
@@ -83,30 +96,31 @@ def end_frame(title, lines, foot):
         else:
             d.text(((W - tw) / 2, y + 30), line, font=f, fill=INK)
         y += 170
-    centred(d, y + 60, foot, font(SANS, 40), GOLD)
+    centred(d, y + 60, foot, fit(d, foot, SANS, 40), GOLD)
     return im
 
 
-def main():
-    name, out = sys.argv[1], Path(sys.argv[2])
-    reel = REELS[name]
+def build(reel):
     frames = []
-    for path, crop, head, sub, bg in reel["scenes"]:
-        photo = Image.open(ROOT / path).convert("RGB")
-        if crop:
-            photo = photo.crop(crop)
+    for i, s in enumerate(reel["scenes"]):
+        photo = load(s["image"], s.get("crop"))
+        bg = tuple(s["bg"]) if s.get("bg") else BGS[i % len(BGS)]
         n = int(SCENE_S * FPS)
-        frames.append([scene_frame(photo, head, sub, bg, 1 + 0.06 * i / n) for i in range(n)])
-    end = end_frame(*reel["end"])
-    frames.append([end] * int(END_S * FPS))
+        frames.append([scene_frame(photo, s["headline"], s.get("subline", ""), bg, 1 + 0.06 * k / n)
+                       for k in range(n)])
+    end = reel.get("end", {})
+    frames.append([end_frame(end.get("title", "Order yours today"),
+                             end.get("lines", ["WhatsApp 95793 06816", "flinoshprints.com"]),
+                             end.get("foot", "Designed in Goa · delivered across India"))]
+                  * int(END_S * FPS))
     fade = int(FADE_S * FPS)
+    out = OUT / f"{reel['name']}.mp4"
     with tempfile.TemporaryDirectory() as tmp:
         k = 0
         for s, scene in enumerate(frames):
             for i, fr in enumerate(scene):
                 if s + 1 < len(frames) and i >= len(scene) - fade:
-                    t = (i - (len(scene) - fade) + 1) / fade
-                    fr = Image.blend(fr, frames[s + 1][0], t)
+                    fr = Image.blend(fr, frames[s + 1][0], (i - (len(scene) - fade) + 1) / fade)
                 fr.save(f"{tmp}/{k:05d}.jpg", quality=92)
                 k += 1
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(FPS),
@@ -114,7 +128,19 @@ def main():
                         "-shortest", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-profile:v", "high",
                         "-crf", "23", "-c:a", "aac", "-b:a", "64k", "-movflags", "+faststart",
                         str(out)], check=True)
-    print(f"{out}: {k / FPS:.1f}s")
+    print(f"{out.relative_to(ROOT)}: {k / FPS:.1f}s")
+
+
+def main():
+    reels = json.loads(REELS.read_text())
+    OUT.mkdir(parents=True, exist_ok=True)
+    names = sys.argv[1:]
+    for reel in reels:
+        if names and reel["name"] not in names:
+            continue
+        if not names and (OUT / f"{reel['name']}.mp4").exists():
+            continue
+        build(reel)
 
 
 if __name__ == "__main__":
