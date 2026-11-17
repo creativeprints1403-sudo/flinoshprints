@@ -23,9 +23,11 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-QUEUE = ROOT / "social" / "instagram-queue.json"
-POSTED = ROOT / "social" / "instagram-posted.json"
-PRODUCTS = ROOT / "social" / "instagram-products.json"
+# Another account (e.g. AdCut) can use its own files via IG_DIR, e.g. "social/adcut".
+DIR = ROOT / os.environ.get("IG_DIR", "social")
+QUEUE = DIR / "instagram-queue.json"
+POSTED = DIR / "instagram-posted.json"
+PRODUCTS = DIR / "instagram-products.json"
 API = "https://graph.facebook.com/v21.0"
 IG_API = "https://graph.instagram.com/v21.0"
 IST = timezone(timedelta(hours=5, minutes=30))
@@ -111,7 +113,7 @@ def main():
     if os.environ.get("CHECK_ONLY") == "true":
         print("Check only; nothing posted.")
         return
-    queue = json.loads(QUEUE.read_text())
+    queue = json.loads(QUEUE.read_text()) if QUEUE.exists() else []
     posted = json.loads(POSTED.read_text()) if POSTED.exists() else []
     done = {p["key"] for p in posted}
     now = datetime.now(IST).date()

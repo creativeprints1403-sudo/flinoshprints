@@ -1,0 +1,39 @@
+name: Instagram posts (AdCut)
+
+on:
+  schedule:
+    - cron: "0 14 * * *"  # every day at 19:30 IST
+  workflow_dispatch:
+    inputs:
+      check_only:
+        description: "Only check the connection, don't post"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency: instagram-adcut
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish the next due post
+        env:
+          IG_DIR: social/adcut
+          IG_USER_ID: ${{ secrets.ADCUT_IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.ADCUT_IG_ACCESS_TOKEN }}
+          CHECK_ONLY: ${{ inputs.check_only }}
+        run: python3 scripts/post_instagram.py
+      - name: Record what was posted
+        run: |
+          if [ -n "$(git status --porcelain social/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git add social/
+            git commit -m "Record AdCut Instagram post"
+            git pull --rebase -q origin main
+            git push
+          fi
