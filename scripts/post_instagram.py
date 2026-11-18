@@ -32,6 +32,7 @@ API = "https://graph.facebook.com/v21.0"
 IG_API = "https://graph.instagram.com/v21.0"
 IST = timezone(timedelta(hours=5, minutes=30))
 STALE_DAYS = 2
+SITE = "https://flinoshprints.com/"
 
 
 class ApiError(Exception):
@@ -150,7 +151,9 @@ def publish(user, token, post):
     if post.get("video"):
         params.update(media_type="REELS", video_url=post["video"], share_to_feed="true")
     else:
-        params["image_url"] = post["image"]
+        # the premium watermarked card (scripts/make_post_cards.py) once it is built
+        card = post.get("card")
+        params["image_url"] = (SITE + card) if card and (ROOT / card).exists() else post["image"]
     container = call(f"{user}/media", params)["id"]
     for _ in range(60 if post.get("video") else 12):
         if status(container, token) in ("FINISHED", None):

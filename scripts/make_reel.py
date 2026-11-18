@@ -18,6 +18,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+from make_post_cards import watermark
+
 ROOT = Path(__file__).resolve().parent.parent
 REELS = ROOT / "social" / "reels.json"
 OUT = ROOT / "assets" / "reels"
@@ -96,6 +98,9 @@ def scene_frame(photo, headline, subline, bg, zoom, brand=None, overlay=None, bi
     ph = photo.resize((int(photo.width * scale), int(photo.height * scale)), Image.LANCZOS)
     x, y = (W - ph.width) // 2, 460 + (1200 - ph.height) // 2
     im.paste(ph, (x, y))
+    if brand.get("logo", "assets/logo-mark.webp"):  # Flinosh photos get the tiled watermark
+        wm = watermark(ph.size)
+        im.paste(wm, (x, y), wm)
     if overlay:  # an ad-style caption and price on the photo
         f = fit(d, overlay["text"], SANS_BOLD, 62, ph.width - 80)
         tw = d.textlength(overlay["text"], font=f)
