@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Post the Flinosh queue and product rotation to Threads.
 
-Runs from .github/workflows/threads.yml with secrets THREADS_USER_ID and
-THREADS_ACCESS_TOKEN (a long-lived Threads token from the "Flinosh autopost"
+Runs from .github/workflows/threads.yml with the secret THREADS_ACCESS_TOKEN
+(THREADS_USER_ID is optional) (a long-lived Threads token from the "Flinosh autopost"
 Meta app). Without them it does nothing. Uses the same queue, products and
 premium cards as Instagram, with its own log in social/threads-posted.json.
 Threads allows 500 characters, so hashtag lines are dropped and long captions
@@ -70,9 +70,9 @@ def publish(user, token, entry):
 
 
 def main():
-    user, token = os.environ.get("THREADS_USER_ID"), os.environ.get("THREADS_ACCESS_TOKEN")
-    if not user or not token:
-        print("THREADS_USER_ID / THREADS_ACCESS_TOKEN not set; skipping.")
+    user, token = os.environ.get("THREADS_USER_ID") or "me", os.environ.get("THREADS_ACCESS_TOKEN")
+    if not token:
+        print("THREADS_ACCESS_TOKEN not set; skipping.")
         return
     try:
         print(f"Connected to Threads as @{get(user, fields='username', access_token=token).get('username')}.")
