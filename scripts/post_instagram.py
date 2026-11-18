@@ -101,6 +101,22 @@ def next_product(posted):
     return min(fresh, key=lambda p: last.get(media(p), -1))
 
 
+def slot_due(posted):
+    """With IG_SLOTS (IST times like "09:00,11:00"), post only while today's
+    successful posts are fewer than the slots already passed. The workflow then
+    runs often, so a late or dropped GitHub schedule just posts at the next run.
+    Manual runs (FORCE=true) always post."""
+    slots = [s.strip() for s in os.environ.get("IG_SLOTS", "").split(",") if s.strip()]
+    if not slots or os.environ.get("FORCE") == "true":
+        return True
+    now = datetime.now(IST)
+    passed = sum(now.strftime("%H:%M") >= s for s in slots)
+    today = now.date().isoformat()
+    made = sum(1 for p in posted if not p.get("failed") and p["posted_at"].startswith(today))
+    print(f"{made} posted today, {passed} of {len(slots)} slots passed.")
+    return made < passed
+
+
 def main():
     user, token = os.environ.get("IG_USER_ID"), os.environ.get("IG_ACCESS_TOKEN")
     if not user or not token:
@@ -117,6 +133,8 @@ def main():
     queue = json.loads(QUEUE.read_text()) if QUEUE.exists() else []
     posted = json.loads(POSTED.read_text()) if POSTED.exists() else []
     done = {p["key"] for p in posted}
+    if not slot_due(posted):
+        return
     now = datetime.now(IST).date()
     today, oldest = now.isoformat(), (now - timedelta(days=STALE_DAYS)).isoformat()
     due = [p for p in sorted(queue, key=lambda p: p["date"])
