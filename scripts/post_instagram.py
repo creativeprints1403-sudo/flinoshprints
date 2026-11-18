@@ -63,6 +63,65 @@ def check(user, token):
             print(f"Connected to Instagram as @{json.load(r).get('username')}.")
     except urllib.error.HTTPError as e:
         sys.exit(f"Can't reach the Instagram account ({e.code}): {e.read().decode()[:500]}")
+    if not os.environ.get("IG_DIR"):
+        page = fb_page(token)
+        if page:
+            print(f"Will also share to Facebook Page: {page['name']} ({page['id']}).")
+
+
+def fb_page(token):
+    """The Facebook Page this token can post to (FB_PAGE_ID, else the first
+    Page it manages), with that Page's own token. Instagram doesn't share
+    API posts to Facebook by itself, so the poster shares them there too."""
+    if API != "https://graph.facebook.com/v21.0":
+        return None
+    q = urllib.parse.urlencode({"fields": "id,name,access_token", "access_token": token})
+    try:
+        with urllib.request.urlopen(f"{API}/me/accounts?{q}", timeout=60) as r:
+            pages = json.load(r).get("data", [])
+    except urllib.error.HTTPError as e:
+        print(f"Can't list Facebook Pages ({e.code}): {e.read().decode()[:300]}")
+        return None
+    want = os.environ.get("FB_PAGE_ID")
+    pages = [p for p in pages if not want or p["id"] == want]
+    if not pages:
+        print("No Facebook Page available to this token.")
+        return None
+    return pages[0]
+
+
+def fb_text(post):
+    keep = [l for l in post["caption"].split("\n") if "link in bio" not in l]
+    links = ("🛒 Shop on Amazon: " + (post.get("amazon") or "https://www.amazon.in/s?me=A27RXOS2FK94TR")
+             + "\n💬 WhatsApp: https://wa.me/919579306816\n🌐 https://flinoshprints.com")
+    body = "\n".join(keep).strip()
+    while "\n\n\n" in body:
+        body = body.replace("\n\n\n", "\n\n")
+    parts = body.rsplit("\n\n", 1)  # keep hashtags last
+    if len(parts) == 2 and parts[1].lstrip().startswith("#"):
+        return f"{parts[0]}\n\n{links}\n\n{parts[1]}"
+    return f"{body}\n\n{links}"
+
+
+def share_facebook(token, post):
+    """Post the same photo or video to the Facebook Page; never fatal."""
+    page = fb_page(token)
+    if not page:
+        return None
+    try:
+        if post.get("video"):
+            r = call(f"{page['id']}/videos", {"file_url": post["video"], "description": fb_text(post),
+                                              "access_token": page["access_token"]})
+        else:
+            card = post.get("card")
+            url = (SITE + card) if card and (ROOT / card).exists() else post["image"]
+            r = call(f"{page['id']}/photos", {"url": url, "message": fb_text(post),
+                                              "access_token": page["access_token"]})
+        print(f"Shared to Facebook Page {page['name']} as {r.get('post_id') or r.get('id')}.")
+        return r.get("post_id") or r.get("id")
+    except ApiError as e:
+        print(f"Facebook share failed: {e}")
+        return None
 
 
 def refresh(token):
@@ -157,7 +216,12 @@ def main():
             posted.append({"key": key, "failed": True, "posted_at": stamp})
             POSTED.write_text(json.dumps(posted, indent=2) + "\n")
             continue
-        posted.append({"key": key, "media_id": media_id, "posted_at": stamp})
+        entry = {"key": key, "media_id": media_id, "posted_at": stamp}
+        if not os.environ.get("IG_DIR"):  # AdCut has its own account and no Page here
+            fb_id = share_facebook(token, post)
+            if fb_id:
+                entry["fb_id"] = fb_id
+        posted.append(entry)
         POSTED.write_text(json.dumps(posted, indent=2) + "\n")
         print(f"Posted {key} as {media_id}.")
         return
