@@ -50,7 +50,7 @@ def links(entry):
         STORE + "&" + urllib.parse.urlencode({"k": title}) if title else STORE)
     hello = f"Hi Flinosh Prints, I'd like to order: {title}" if title else "Hi Flinosh Prints, I'd like to order"
     wa = WHATSAPP + "?" + urllib.parse.urlencode({"text": hello}, quote_via=urllib.parse.quote)
-    return f"🛒 Buy on Amazon: {amazon}\n💬 Order on WhatsApp: {wa}"
+    return f"🛒 Buy on Amazon: {amazon}\n💬 Order on WhatsApp: {wa}\n🌐 More designs: https://flinoshprints.com"
 
 
 def text(entry):
