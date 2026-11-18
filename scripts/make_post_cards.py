@@ -75,20 +75,20 @@ def wrap(d, text, f, width):
 
 
 def watermark(size):
-    """A tiled, diagonal 'FLINOSH PRINTS' layer to lay over the photo."""
-    side = int((size[0] ** 2 + size[1] ** 2) ** 0.5) + 200
-    layer = Image.new("RGBA", (side, side), (0, 0, 0, 0))
-    d = ImageDraw.Draw(layer)
-    f = font(BOLD, 38)
+    """One faint, gently angled 'FLINOSH PRINTS' mark across the middle of the photo."""
+    w, h = size
     text = "© FLINOSH PRINTS"
-    step_x, step_y = int(d.textlength(text, font=f)) + 120, 150
-    for row, y in enumerate(range(0, side, step_y)):
-        for x in range(-step_x + (row % 2) * step_x // 2, side, step_x):
-            d.text((x + 2, y + 2), text, font=f, fill=(60, 40, 20, 62))
-            d.text((x, y), text, font=f, fill=(255, 255, 255, 90))
-    layer = layer.rotate(30, resample=Image.BICUBIC)
-    left, top = (side - size[0]) // 2, (side - size[1]) // 2
-    return layer.crop((left, top, left + size[0], top + size[1]))
+    probe = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
+    f = fit(probe, text, BOLD, max(28, int(w * 0.11)), int(w * 0.8), 20)
+    tw, th = int(probe.textlength(text, font=f)), f.size
+    layer = Image.new("RGBA", (tw + 20, th + 30), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    d.text((12, 8), text, font=f, fill=(60, 40, 20, 40))
+    d.text((10, 6), text, font=f, fill=(255, 255, 255, 110))
+    layer = layer.rotate(18, expand=True, resample=Image.BICUBIC)
+    out = Image.new("RGBA", size, (0, 0, 0, 0))
+    out.paste(layer, ((w - layer.width) // 2, (h - layer.height) // 2), layer)
+    return out
 
 
 def card(p, photo):
