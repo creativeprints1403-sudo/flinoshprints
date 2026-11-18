@@ -180,6 +180,8 @@ def main():
     reels = json.loads(REELS.read_text())
     OUT.mkdir(parents=True, exist_ok=True)
     names = sys.argv[1:]
+    if names == ["--all"]:
+        names = [r["name"] for r in reels]
     for reel in reels:
         if names and reel["name"] not in names:
             continue

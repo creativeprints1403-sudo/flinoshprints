@@ -16,12 +16,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Install fonts and Pillow
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq fonts-dejavu-core fonts-liberation fonts-inter
           python3 -m pip install --quiet pillow
       - name: Build cards not built yet
-        run: python3 scripts/make_post_cards.py
+        run: |
+          # a change to the design rebuilds everything, otherwise only what's missing
+          if git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -q -E "scripts/make_(post_cards|reel)\.py"; then
+            python3 scripts/make_post_cards.py --all
+          else
+            python3 scripts/make_post_cards.py
+          fi
       - name: Commit new cards
         run: |
           if [ -n "$(git status --porcelain assets/ig/ social/instagram-products.json)" ]; then
