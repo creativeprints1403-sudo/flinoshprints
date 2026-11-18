@@ -2,8 +2,9 @@ name: Instagram posts
 
 on:
   schedule:
-    - cron: "30 3,5,7,9,11,13 * * *"  # 9, 11 am, 1, 3, 5, 7 pm IST
-    - cron: "0 15,16 * * *"           # 8:30, 9:30 pm IST
+    # GitHub often runs schedules late or drops them, so this checks every
+    # 30 minutes (8:43 am to 10:13 pm IST) and posts when a slot in IG_SLOTS is due.
+    - cron: "13,43 3-16 * * *"
   workflow_dispatch:
     inputs:
       check_only:
@@ -26,6 +27,8 @@ jobs:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           CHECK_ONLY: ${{ inputs.check_only }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' }}
+          IG_SLOTS: "09:00,11:00,13:00,15:00,17:00,19:00,20:30,21:30"
         run: python3 scripts/post_instagram.py
       - name: Record what was posted
         run: |
