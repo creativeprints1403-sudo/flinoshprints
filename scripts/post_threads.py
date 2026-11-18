@@ -38,17 +38,36 @@ def post(path, params):
         raise ig.ApiError(f"Threads API error {e.code}: {e.read().decode()[:500]}")
 
 
-def text(caption):
-    lines = [l for l in caption.split("\n") if not l.strip().startswith("#")]
-    t = "\n".join(lines).strip()
-    if len(t) <= 500:
-        return t
-    cut = t[:497]
-    return cut[: max(cut.rfind(". "), cut.rfind("\n"), 300) + 1].strip()
+STORE = "https://www.amazon.in/s?me=A27RXOS2FK94TR"
+WHATSAPP = "https://wa.me/919579306816"
+
+
+def links(entry):
+    """A clickable Amazon link (the listing, or a search in the Flinosh store)
+    and a WhatsApp chat link with a ready-made order message."""
+    title = entry.get("title")
+    amazon = entry.get("amazon") or (
+        STORE + "&" + urllib.parse.urlencode({"k": title}) if title else STORE)
+    hello = f"Hi Flinosh Prints, I'd like to order: {title}" if title else "Hi Flinosh Prints, I'd like to order"
+    wa = WHATSAPP + "?" + urllib.parse.urlencode({"text": hello}, quote_via=urllib.parse.quote)
+    return f"🛒 Buy on Amazon: {amazon}\n💬 Order on WhatsApp: {wa}"
+
+
+def text(entry):
+    """The caption's own words (no hashtags or Instagram 'link in bio' line)
+    plus the two links, within Threads' 500 characters."""
+    keep = [l for l in entry["caption"].split("\n")
+            if not l.strip().startswith("#") and "link in bio" not in l and "WhatsApp 95793" not in l]
+    body, tail = "\n".join(keep).strip(), links(entry)
+    room = 500 - len(tail) - 2
+    if len(body) > room:
+        cut = body[: room - 1]
+        body = cut[: max(cut.rfind(". "), cut.rfind("\n"), room // 2) + 1].strip()
+    return f"{body}\n\n{tail}"
 
 
 def publish(user, token, entry):
-    params = {"text": text(entry["caption"]), "access_token": token}
+    params = {"text": text(entry), "access_token": token}
     if entry.get("video"):
         params.update(media_type="VIDEO", video_url=entry["video"])
     else:
