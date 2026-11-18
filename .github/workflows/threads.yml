@@ -1,0 +1,41 @@
+name: Threads posts
+
+on:
+  schedule:
+    # checks every 30 minutes (8:53 am to 9:53 pm IST); posts when a slot in IG_SLOTS is due
+    - cron: "23,53 3-16 * * *"
+  workflow_dispatch:
+    inputs:
+      check_only:
+        description: "Only check the connection, don't post"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency: threads
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish the next due post
+        env:
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          CHECK_ONLY: ${{ inputs.check_only }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' }}
+          IG_SLOTS: "10:00,14:00,19:30"
+        run: python3 scripts/post_threads.py
+      - name: Record what was posted
+        run: |
+          if [ -n "$(git status --porcelain social/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git add social/
+            git commit -m "Record Threads post"
+            git pull --rebase -q origin main
+            git push
+          fi
