@@ -84,8 +84,8 @@ def watermark(size):
     step_x, step_y = int(d.textlength(text, font=f)) + 120, 150
     for row, y in enumerate(range(0, side, step_y)):
         for x in range(-step_x + (row % 2) * step_x // 2, side, step_x):
-            d.text((x + 2, y + 2), text, font=f, fill=(0, 0, 0, 34))
-            d.text((x, y), text, font=f, fill=(255, 255, 255, 70))
+            d.text((x + 2, y + 2), text, font=f, fill=(60, 40, 20, 62))
+            d.text((x, y), text, font=f, fill=(255, 255, 255, 90))
     layer = layer.rotate(30, resample=Image.BICUBIC)
     left, top = (side - size[0]) // 2, (side - size[1]) // 2
     return layer.crop((left, top, left + size[0], top + size[1]))
