@@ -171,7 +171,7 @@ def build(reel):
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(FPS),
                         "-i", f"{tmp}/%05d.jpg", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
                         "-shortest", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-profile:v", "high",
-                        "-crf", "23", "-c:a", "aac", "-b:a", "64k", "-movflags", "+faststart",
+                        "-crf", "18", "-c:a", "aac", "-b:a", "64k", "-movflags", "+faststart",
                         str(out)], check=True)
     print(f"{out.relative_to(ROOT)}: {k / FPS:.1f}s")
 
