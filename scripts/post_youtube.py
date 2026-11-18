@@ -5,7 +5,9 @@ YT_CLIENT_ID, YT_CLIENT_SECRET and YT_REFRESH_TOKEN (an OAuth refresh token
 for the channel, with the youtube.upload scope). Without them it does nothing.
 
 Queue entries: {"date": "YYYY-MM-DD", "video": "assets/reels/x.mp4" or URL,
-"title": "...", "description": "...", "tags": [...], "privacy": "public"}.
+"title": "...", "description": "...", "tags": [...], "privacy": "public",
+optional "category" (YouTube category id, default "22") and "thumbnail" (a JPG/PNG
+path; custom thumbnails need a phone-verified channel)}.
 Uploaded entries are logged in social/youtube-posted.json.
 
 Note: until Google audits the Cloud project, YouTube locks API uploads to
@@ -71,6 +73,20 @@ def upload(access, entry):
         return json.load(r)
 
 
+def set_thumbnail(access, video_id, path):
+    data = (ROOT / path).read_bytes()
+    kind = "image/png" if path.lower().endswith(".png") else "image/jpeg"
+    req = urllib.request.Request(
+        f"https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={video_id}",
+        data=data, method="POST", headers={"Authorization": f"Bearer {access}", "Content-Type": kind})
+    try:
+        with urllib.request.urlopen(req, timeout=120):
+            return True
+    except urllib.error.HTTPError as e:
+        print(f"Thumbnail not set ({e.code}): {e.read().decode()[:300]}")
+        return False
+
+
 def main():
     if not all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN")):
         print("YouTube secrets not set; skipping.")
@@ -100,9 +116,12 @@ def main():
         POSTED.write_text(json.dumps(posted, indent=2) + "\n")
         sys.exit(f"Upload failed ({e.code}): {e.read().decode()[:500]}")
     status = result.get("status", {}).get("privacyStatus")
-    posted.append({"key": key, "video_id": result["id"], "privacy": status, "posted_at": stamp})
+    record = {"key": key, "video_id": result["id"], "privacy": status, "posted_at": stamp}
+    if entry.get("thumbnail"):
+        record["thumbnail_set"] = set_thumbnail(access, result["id"], entry["thumbnail"])
+    posted.append(record)
     POSTED.write_text(json.dumps(posted, indent=2) + "\n")
-    print(f"Uploaded {entry['video']} as https://youtube.com/shorts/{result['id']} ({status}).")
+    print(f"Uploaded {entry['video']} as https://youtu.be/{result['id']} ({status}).")
 
 
 if __name__ == "__main__":
