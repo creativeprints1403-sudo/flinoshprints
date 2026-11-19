@@ -107,6 +107,24 @@ def place(im, piece, cx, cy, scale=1.0, angle=0.0, lift=0.0):
     im.paste(p, (int(cx - p.width / 2), int(cy - p.height / 2)), p)
 
 
+def cover_photo(path, zoom):
+    ph = Image.open(ROOT / path).convert("RGBA")
+    ph.alpha_composite(watermark(ph.size))
+    sc = max(W / ph.width, H / ph.height) * zoom
+    ph = ph.resize((int(ph.width * sc), int(ph.height * sc)), Image.LANCZOS)
+    x, y = (ph.width - W) // 2, (ph.height - H) // 2
+    return ph.crop((x, y, x + W, y + H)).convert("RGB")
+
+
+def photo_scene(emit, S, paths, text, sub, secs=2.4):
+    for path in paths:
+        n = S(secs)
+        for i in range(n):
+            im = cover_photo(path, 1.0 + 0.07 * i / n)
+            caption(im, text, sub)
+            emit(im)
+
+
 def stack(card, n=14):
     """A stack of cards: the card on top, paper edges below."""
     w, h = card.size
@@ -135,7 +153,7 @@ def caption(im, text, sub=None, y=1440):
 def build(spec, out):
     marble = table()
     card = marked(cutout(spec["card"], spec.get("card_box"), spec.get("thresh", 26)))
-    cs = min(560 / card.width, 780 / card.height)
+    cs = min((900 if card.width > card.height else 560) / card.width, 780 / card.height)
     card = card.resize((int(card.width * cs), int(card.height * cs)), Image.LANCZOS)
     env = None
     if spec.get("envelope") == "white-5x7":
@@ -145,6 +163,10 @@ def build(spec, out):
     extra = marked(cutout(spec["extra"], spec.get("extra_box"))) if spec.get("extra") else None
     ribbon = tuple(spec.get("ribbon", [178, 24, 40]))
     st = stack(card)
+    if spec.get("stack_photo"):
+        st = marked(cutout(spec["stack_photo"], spec.get("stack_box"), spec.get("thresh", 26)))
+        k = min(900 / st.width, 900 / st.height)
+        st = st.resize((int(st.width * k), int(st.height * k)), Image.LANCZOS)
 
     proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
                              "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "slow", "-crf", "18",
@@ -161,13 +183,15 @@ def build(spec, out):
     for i in range(n):
         t = i / n
         im = bg_frame(marble, 1 + 0.06 * t)
-        place(im, st, W / 2 + 10, 800, 1.0 + 0.08 * t, -6 + 2 * t)
+        place(im, st, W / 2 + 10, 800, 1.0 + 0.08 * t, (-6 + 2 * t) if not spec.get("stack_photo") else 0)
         if i > S(0.3):
             caption(im, spec["hook"], spec.get("hook_sub"))
         emit(im)
 
     # 2. vellum sheet slides over the top card, ribbon wraps, bow
-    n = S(4.6)
+    n = S(4.6) if spec.get("wrap") and not spec.get("wrap_photos") else 0
+    if spec.get("wrap_photos"):
+        photo_scene(emit, S, spec["wrap_photos"], spec["wrap"], spec.get("wrap_sub"))
     cx, cy = W / 2, 800
     for i in range(n):
         t = i / n
@@ -217,7 +241,9 @@ def build(spec, out):
         emit(im)
 
     # 4. extras fanned out
-    if extra is not None:
+    if spec.get("extra_photos"):
+        photo_scene(emit, S, spec["extra_photos"], spec["extra_text"], spec.get("extra_sub"), 3.0)
+    elif extra is not None:
         n = S(3.4)
         es = min(860 / extra.width, 900 / extra.height)
         for i in range(n):
