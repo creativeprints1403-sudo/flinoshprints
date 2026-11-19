@@ -190,7 +190,7 @@ def main():
     rebuild = "--all" in sys.argv
     changed = False
     for p in products:
-        if not p.get("title"):
+        if not p.get("title") or p.get("video"):  # reels need no card
             continue
         name = f"assets/ig/{slug(p)}.jpg"
         if rebuild or not (ROOT / name).exists():
