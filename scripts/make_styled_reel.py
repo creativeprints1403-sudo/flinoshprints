@@ -53,6 +53,20 @@ def cutout(path, box=None, thresh=26):
     return out.crop(bb) if bb else out
 
 
+def white_envelope(w=805, h=583):
+    """A plain white 5x7 (A7) envelope seen from the back: flap and side seams."""
+    env = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(env)
+    d.rectangle((0, 0, w - 1, h - 1), fill=(252, 252, 250, 255), outline=(222, 222, 218, 255), width=2)
+    d.line((0, h - 1, w * 0.5, h * 0.52, w - 1, h - 1), fill=(228, 228, 224, 255), width=3)  # bottom seams
+    d.polygon([(0, 0), (w - 1, 0), (w * 0.5, h * 0.58)], fill=(247, 247, 244, 255), outline=(220, 220, 215, 255))
+    shade = Image.linear_gradient("L").resize((w, h)).point(lambda v: int(v * 0.06))
+    env.alpha_composite(Image.merge("RGBA", (Image.new("L", (w, h), 120),) * 3 + (shade,)))
+    a = Image.new("L", (w, h), 255)
+    env.putalpha(a)
+    return env
+
+
 def marked(img):
     img = img.copy()
     wm = watermark(img.size)
@@ -123,7 +137,11 @@ def build(spec, out):
     card = marked(cutout(spec["card"], spec.get("card_box"), spec.get("thresh", 26)))
     cs = min(560 / card.width, 780 / card.height)
     card = card.resize((int(card.width * cs), int(card.height * cs)), Image.LANCZOS)
-    env = marked(cutout(spec["envelope"])) if spec.get("envelope") else None
+    env = None
+    if spec.get("envelope") == "white-5x7":
+        env = white_envelope(int(card.width * 7.25 / 5), int(card.height * 5.25 / 7))
+    elif spec.get("envelope"):
+        env = marked(cutout(spec["envelope"]))
     extra = marked(cutout(spec["extra"], spec.get("extra_box"))) if spec.get("extra") else None
     ribbon = tuple(spec.get("ribbon", [178, 24, 40]))
     st = stack(card)
@@ -191,7 +209,7 @@ def build(spec, out):
         t = ease(i / (n * 0.7))
         im = bg_frame(marble, 1.06, dx=-20 * t)
         if env is not None:
-            es = 640 / env.width
+            es = 1.0 if spec.get("envelope") == "white-5x7" else 640 / env.width
             place(im, env, 330, 1060, es, 12)
             place(im, env, 820, 470, es * 0.9, -18)
         place(im, card, lerp(W / 2, W / 2 + 40, t), lerp(820, 760, t), lerp(1.0, 1.12, t), lerp(0, -7, t), lift=t)
