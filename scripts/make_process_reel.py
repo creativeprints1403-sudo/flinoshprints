@@ -68,7 +68,7 @@ def draw_printer(d, top, prog, blink):
     d.text((x0 + 60, top + 160), "PRINTING…  %d%%" % int(prog * 100), font=font(SANS_BOLD, 40), fill=(220, 220, 225))
 
 
-def build(out, sheet_path, boxes, title, product, frames_dir=None):
+def build(out, sheet_path, boxes, title, product, finale=None, end_foot="Designed & printed in Goa"):
     sheet = Image.open(sheet_path).convert("RGB")
     SW = 1000 if sheet.width > sheet.height else 900
     k = SW / sheet.width
@@ -256,9 +256,11 @@ def build(out, sheet_path, boxes, title, product, frames_dir=None):
         footer(im, d, {})
         emit(im)
 
+    if finale:
+        unbox_and_read(emit, secs, logo, [marked_piece(f) for f in finale])
+
     # 5. end card
-    end = end_frame("Shop our " + title, ["WhatsApp 95793 06816", "Search Flinosh Prints on Amazon"],
-                    "Designed & printed in Goa")
+    end = end_frame("Shop our " + title, ["WhatsApp 95793 06816", "Search Flinosh Prints on Amazon"], end_foot)
     n = secs(3.6)
     for i in range(n):
         emit(end)
@@ -267,6 +269,79 @@ def build(out, sheet_path, boxes, title, product, frames_dir=None):
     return count[0] / FPS
 
 
+def marked_piece(path):
+    im = Image.open(path).convert("RGBA")
+    a = im.split()[3]
+    im.alpha_composite(watermark(im.size))
+    im.putalpha(a)
+    return im
+
+
+def draw_book(d, x, y, w, h, cover, spine):
+    d.rectangle((x + 10, y - 22, x + w - 6, y + 4), fill=(246, 240, 226))  # page block seen from above
+    for k in range(5):
+        d.line((x + 14, y - 18 + k * 5, x + w - 10, y - 18 + k * 5), fill=(222, 214, 196), width=1)
+    d.rounded_rectangle((x, y, x + w, y + h), 12, fill=cover)
+    d.rectangle((x, y, x + 34, y + h), fill=spine)
+    d.rectangle((x + 70, y + 90, x + w - 40, y + 96), fill=(235, 205, 120))
+    d.rectangle((x + 70, y + h - 120, x + w - 40, y + h - 114), fill=(235, 205, 120))
+
+
+def unbox_and_read(emit, secs, logo, marks):
+    """The parcel opens, the bookmarks come out, then two slide into books."""
+    box_w, box_h = 760, 420
+    bx0, by0 = (W - box_w) // 2, 900
+    m = len(marks)
+    sc = 620 / max(mk.height for mk in marks)
+    sm = [mk.resize((int(mk.width * sc), int(mk.height * sc)), Image.LANCZOS) for mk in marks]
+    n = secs(3.4)
+    for i in range(n):
+        tt = i / n
+        im, d = base((245, 238, 228))
+        lp = ease(tt / 0.25)  # lid lifts away
+        rise = ease((tt - 0.25) / 0.45)
+        for j, mk in enumerate(sm):
+            fx = W / 2 + (j - (m - 1) / 2) * (mk.width + 30)
+            x = lerp(W / 2, fx, rise) - mk.width / 2
+            y = lerp(by0 + 40, 230, rise)
+            if rise > 0:
+                shadow_paste(im, mk, x, y, off=12)
+        d.rectangle((bx0, by0, bx0 + box_w, by0 + box_h), fill=(196, 150, 100))
+        d.line((bx0, by0 + 6, bx0 + box_w, by0 + 6), fill=(170, 125, 80), width=8)
+        if lp < 1:
+            ly = lerp(by0 - 60, -260, lp)
+            d.rounded_rectangle((bx0 - 40, ly, bx0 + box_w + 40, ly + 110), 14, fill=(176, 130, 84))
+            lg = logo.copy()
+            lg.thumbnail((90, 90))
+            im.paste(lg, (W // 2 - lg.width // 2, int(ly + 10)), lg)
+        caption(d, "STEP 5", "Open the parcel", "made fresh for your order", y=1440)
+        footer(im, d, {})
+        emit(im)
+
+    # into the books: two books side by side, a bookmark slides into each
+    books = [((120, 820, 400, 560), (128, 30, 44), (96, 20, 32)), ((560, 820, 400, 560), (30, 72, 60), (20, 52, 44))]
+    pick = [sm[0], sm[min(1, m - 1)]] if m > 1 else [sm[0], sm[0]]
+    n = secs(3.8)
+    for i in range(n):
+        tt = i / n
+        im, d = base((236, 226, 210))
+        d.rectangle((0, 1380, W, 1380), fill=(200, 185, 160))
+        for k, ((x, y, w, h), cover, spine) in enumerate(books):
+            mk = pick[k]
+            p = ease((tt - 0.12 - k * 0.22) / 0.4)
+            bm_x = x + w / 2 - mk.width / 2
+            bm_y = lerp(-mk.height - 40, y - mk.height * 0.42, p)
+            if p > 0:
+                visible = mk.crop((0, 0, mk.width, max(1, int(min(mk.height, y + 4 - bm_y)))))
+                shadow_paste(im, visible, bm_x, bm_y, off=8)
+            draw_book(d, x, y, w, h, cover, spine)
+        caption(d, "", "Slip it into your book", "and never lose your page", y=1450)
+        footer(im, d, {})
+        emit(im)
+
+
 if __name__ == "__main__":
     out, sheet, boxes, title, product = sys.argv[1:6]
-    print(out, build(out, sheet, json.loads(boxes), title, product), "s")
+    finale = sys.argv[6].split(",") if len(sys.argv) > 6 and sys.argv[6] else None
+    foot = sys.argv[7] if len(sys.argv) > 7 else "Designed & printed in Goa"
+    print(out, build(out, sheet, json.loads(boxes), title, product, finale, foot), "s")
