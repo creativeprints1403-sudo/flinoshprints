@@ -1,0 +1,47 @@
+name: Save AdCut videos
+
+# AdCut's video links only work for 6 hours, so this copies each video in
+# social/adcut-videos.json into assets/reels/ (served on flinoshprints.com)
+# as soon as the list changes on main. Videos already saved are skipped.
+
+on:
+  push:
+    branches: [main]
+    paths: ["social/adcut-videos.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: adcut-videos
+
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download videos not saved yet
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, urllib.request
+          for v in json.loads(pathlib.Path("social/adcut-videos.json").read_text()):
+              out = pathlib.Path("assets/reels") / v["file"]
+              if out.exists():
+                  continue
+              print("Saving", out)
+              with urllib.request.urlopen(v["url"], timeout=120) as r:
+                  data = r.read()
+              if len(data) < 50_000:
+                  raise SystemExit(f"{out}: download too small ({len(data)} bytes), link may have expired")
+              out.write_bytes(data)
+          PY
+      - name: Commit saved videos
+        run: |
+          if [ -n "$(git status --porcelain assets/reels/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git add assets/reels/
+            git commit -m "Save AdCut videos"
+            git pull --rebase -q origin main
+            git push
+          fi
