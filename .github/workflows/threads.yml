@@ -2,7 +2,7 @@ name: Threads posts
 
 on:
   schedule:
-    # checks every 30 minutes (8:53 am to 9:53 pm IST); posts when a slot in IG_SLOTS is due
+    # checks every 30 minutes (8:53 am to 9:53 pm IST); posts when one of the 10 IG_SLOTS is due
     - cron: "23,53 3-16 * * *"
   workflow_dispatch:
     inputs:
@@ -27,7 +27,7 @@ jobs:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           CHECK_ONLY: ${{ inputs.check_only }}
           FORCE: ${{ github.event_name == 'workflow_dispatch' }}
-          IG_SLOTS: "10:00,14:00,19:30"
+          IG_SLOTS: "09:30,10:30,11:30,12:30,13:30,15:30,17:30,18:30,19:30,20:30"
         run: python3 scripts/post_threads.py
       - name: Record what was posted
         run: |
