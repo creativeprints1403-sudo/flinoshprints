@@ -1,29 +1,6 @@
 [
   {
     "date": "2026-11-18",
-    "video": "assets/youtube/chatgpt-excel-formulas.mp4",
-    "title": "Let ChatGPT Write Your Excel Formulas (6 Examples)",
-    "description": "Learn how to get ChatGPT to write, explain and fix Excel formulas for you, even if you hate Excel. We cover SUMIF, SUMIFS, XLOOKUP, IF, COUNTIF and fixing errors, and every prompt works in Google Sheets too.\n\nChapters\n0:00 Intro\n0:49 Step 1: Describe your sheet\n1:06 Step 2: Total for one group\n1:40 Step 3: Two conditions\n2:25 Step 4: Look up a value\n2:58 Step 5: Rules and counts\n3:32 Step 6: Fix errors\n4:02 Tips\n4:29 A warning\n4:52 Recap\n\nPrompts from the video\n- My sheet has Date in column A, Salesperson in B, Region in C, Product in D and Amount in E, with headers in row 1. Write a formula for the total amount for the North region.\n- Now give me the total for North, but only for sales in March 2026.\n- On my Prices sheet, products are in column A and prices in column B. Write a formula for F2 that pulls the price for the product in D2, and shows 'Not found' if it's missing.\n- In column G, write 'Bonus' if the amount in E is 10,000 or more, otherwise 'No'.\n- How many sales did each salesperson make? Salesperson names are in column B.\n- This formula shows an error. What's wrong and how do I fix it? Formula: [paste formula]. Error: [paste error].\n- Explain this formula step by step in plain English: [paste formula]\n\nSome links in my descriptions are affiliate links. If you buy through them I may earn a small commission at no extra cost to you.\n\n#AItools #productivity",
-    "tags": [
-      "chatgpt excel",
-      "excel formulas",
-      "chatgpt excel formulas",
-      "ai for excel",
-      "sumif",
-      "sumifs",
-      "xlookup",
-      "countif",
-      "excel for beginners",
-      "google sheets formulas",
-      "excel tips",
-      "chatgpt for work",
-      "productivity"
-    ],
-    "category": "27",
-    "thumbnail": "assets/youtube/chatgpt-excel-formulas-thumb.jpg"
-  },
-  {
-    "date": "2026-11-18",
     "video": "assets/reels/adcut-how-it-works.mp4",
     "title": "Your photos in, promo video out: make a shop ad in 2 minutes #shorts",
     "description": "AdCut turns your shop photos into a ready-to-post promo video in about 2 minutes. Upload photos, tap AI write, pick a style, done. For shops, salons, cafés, gyms and clinics. Text in English, Hindi, Marathi, Konkani, Tamil and more.\n\nTry 3 videos free, no card needed: https://adcut.onrender.com\n\n#shorts #smallbusiness #videoads #AdCut",
