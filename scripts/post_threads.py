@@ -88,6 +88,22 @@ def publish(user, token, entry):
     return post(f"{user}/threads_publish", {"creation_id": container, "access_token": token})["id"]
 
 
+def seasonal_first(queue, posted):
+    """Season posts (Christmas, New Year) go out before everything else until
+    each has been on Threads once: the season reel from the queue, then every
+    product with an "until" date, in list order."""
+    shown = {p["key"].split("https://", 1)[-1] for p in posted if not p.get("failed")}
+    failed = {p["key"] for p in posted if p.get("failed")}
+    today = datetime.now(ig.IST).date().isoformat()
+    reels = [p for p in queue if "christmas" in ig.media(p).lower()]
+    products = json.loads(ig.PRODUCTS.read_text()) if ig.PRODUCTS.exists() else []
+    season = reels + [p for p in products if p.get("until") and p["until"] >= today]
+    for p in season:
+        key = (p["date"] if "date" in p else "product:") + ig.media(p)
+        if ig.media(p).split("https://", 1)[-1] not in shown and key not in failed:
+            yield p, key
+
+
 def main():
     user, token = os.environ.get("THREADS_USER_ID") or "me", os.environ.get("THREADS_ACCESS_TOKEN")
     if not token:
@@ -112,8 +128,12 @@ def main():
     today, oldest = now.isoformat(), (now - timedelta(days=ig.STALE_DAYS)).isoformat()
     due = [p for p in sorted(queue, key=lambda p: p["date"])
            if oldest <= p["date"] <= today and p["date"] + ig.media(p) not in done]
+    season = seasonal_first(queue, posted)
     for _ in range(3):
-        if due:
+        entry = next(season, None)
+        if entry:
+            entry, key = entry
+        elif due:
             entry = due.pop(0)
             key = entry["date"] + ig.media(entry)
         else:
