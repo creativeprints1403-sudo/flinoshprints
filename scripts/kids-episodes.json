@@ -1,0 +1,886 @@
+[
+ {
+  "id": "kids-ai-1-what-is-ai",
+  "title": "What is AI?",
+  "icon": [
+   "🤖"
+  ],
+  "seed": 1,
+  "beats": [
+   {
+    "who": "momo",
+    "say": "Bolt, what is AI?",
+    "prop": {
+     "items": [
+      "🤔"
+     ]
+    },
+    "dur": 2.8
+   },
+   {
+    "who": "bolt",
+    "say": "AI means Artificial Intelligence!",
+    "prop": {
+     "items": [
+      "🤖",
+      "🧠"
+     ]
+    }
+   },
+   {
+    "who": "bolt",
+    "say": "It's a computer that learns from examples.",
+    "prop": {
+     "items": [
+      "💻",
+      "📚"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "momo",
+    "say": "Like how I learned what a cat looks like?",
+    "prop": {
+     "items": [
+      "🐱",
+      "🐈",
+      "😺"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "bolt",
+    "say": "Yes! AI looks at lots and lots of cat pictures too.",
+    "prop": {
+     "items": [
+      "🐱",
+      "🐱",
+      "🐱",
+      "🐱"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "bolt",
+    "say": "Then it can spot a new cat all by itself!",
+    "prop": {
+     "items": [
+      "🐈"
+     ],
+     "marks": [
+      "✅"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "momo",
+    "say": "Hoo hoo! AI is a learning computer!",
+    "prop": {
+     "items": [
+      "🎉"
+     ]
+    },
+    "dur": 3.4
+   }
+  ],
+  "series": "AI for Kids",
+  "end": "AI for Kids!"
+ },
+ {
+  "id": "kids-ai-2-how-ai-learns",
+  "title": "How does AI learn?",
+  "icon": [
+   "🧠"
+  ],
+  "seed": 2,
+  "beats": [
+   {
+    "who": "momo",
+    "say": "Bolt, how does AI learn?",
+    "prop": {
+     "items": [
+      "🤔"
+     ]
+    },
+    "dur": 2.8
+   },
+   {
+    "who": "bolt",
+    "say": "With practice! Just like you.",
+    "prop": {
+     "items": [
+      "✏️",
+      "📖"
+     ]
+    },
+    "dur": 3.0
+   },
+   {
+    "who": "bolt",
+    "say": "We show it an apple and say: apple!",
+    "prop": {
+     "items": [
+      "🍎"
+     ],
+     "labels": [
+      "apple"
+     ]
+    }
+   },
+   {
+    "who": "bolt",
+    "say": "We show it a banana and say: banana!",
+    "prop": {
+     "items": [
+      "🍌"
+     ],
+     "labels": [
+      "banana"
+     ]
+    }
+   },
+   {
+    "who": "momo",
+    "say": "What if it guesses wrong?",
+    "prop": {
+     "items": [
+      "🍌"
+     ],
+     "labels": [
+      "apple?"
+     ],
+     "marks": [
+      "❌"
+     ]
+    },
+    "dur": 3.2
+   },
+   {
+    "who": "bolt",
+    "say": "We fix it, and it tries again!",
+    "prop": {
+     "items": [
+      "🔁"
+     ]
+    },
+    "dur": 3.0
+   },
+   {
+    "who": "bolt",
+    "say": "After thousands of tries, it gets really good!",
+    "prop": {
+     "items": [
+      "🍎",
+      "🍌"
+     ],
+     "labels": [
+      "apple",
+      "banana"
+     ],
+     "marks": [
+      "✅",
+      "✅"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "momo",
+    "say": "Practice makes perfect! Hoo hoo!",
+    "prop": {
+     "items": [
+      "🏆"
+     ]
+    },
+    "dur": 3.2
+   }
+  ],
+  "series": "AI for Kids",
+  "end": "AI for Kids!"
+ },
+ {
+  "id": "kids-ai-3-is-ai-always-right",
+  "title": "Is AI always right?",
+  "icon": [
+   "🤖"
+  ],
+  "seed": 3,
+  "beats": [
+   {
+    "who": "momo",
+    "say": "Bolt, is AI always right?",
+    "prop": {
+     "items": [
+      "🤔"
+     ]
+    },
+    "dur": 2.8
+   },
+   {
+    "who": "bolt",
+    "say": "Nope! AI can make mistakes too.",
+    "prop": {
+     "items": [
+      "🙈"
+     ]
+    },
+    "dur": 3.2
+   },
+   {
+    "who": "bolt",
+    "say": "Once I thought a fluffy dog was a cloud!",
+    "prop": {
+     "items": [
+      "🐶",
+      "☁️"
+     ],
+     "labels": [
+      "dog",
+      "cloud?"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "momo",
+    "say": "Hoo hoo! That's so silly!",
+    "prop": {
+     "items": [
+      "😂"
+     ]
+    },
+    "dur": 2.8
+   },
+   {
+    "who": "bolt",
+    "say": "So always double-check what AI says.",
+    "prop": {
+     "items": [
+      "🔍"
+     ]
+    },
+    "dur": 3.4
+   },
+   {
+    "who": "bolt",
+    "say": "And ask a grown-up when you're not sure.",
+    "prop": {
+     "items": [
+      "👩",
+      "🧒"
+     ],
+     "marks": [
+      "",
+      "✅"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "momo",
+    "say": "Smart kids always check!",
+    "prop": {
+     "items": [
+      "⭐"
+     ]
+    },
+    "dur": 3.0
+   }
+  ],
+  "series": "AI for Kids",
+  "end": "AI for Kids!"
+ },
+ {
+  "id": "kids-maths-1-times-9-trick",
+  "series": "Maths Magic",
+  "title": "The 9 times table trick!",
+  "icon": [
+   "✋"
+  ],
+  "seed": 4,
+  "beats": [
+   {
+    "who": "momo",
+    "say": "Bolt, 9 times tables are so hard!",
+    "prop": {
+     "items": [
+      "😩"
+     ]
+    },
+    "dur": 3.0
+   },
+   {
+    "who": "bolt",
+    "say": "Use your fingers! Hold up all ten.",
+    "prop": {
+     "items": [
+      "🖐️",
+      "🖐️"
+     ]
+    },
+    "dur": 3.4
+   },
+   {
+    "who": "bolt",
+    "say": "For 9 times 3, fold down finger number 3.",
+    "prop": {
+     "items": [
+      "🖐️",
+      "🤟"
+     ],
+     "labels": [
+      "",
+      "fold #3"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "bolt",
+    "say": "2 fingers on the left, 7 on the right. 27!",
+    "prop": {
+     "items": [
+      "2️⃣",
+      "7️⃣"
+     ],
+     "labels": [
+      "left",
+      "right"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "momo",
+    "say": "9 times 3 is 27! It works!",
+    "prop": {
+     "items": [
+      "🎯"
+     ],
+     "labels": [
+      "9 × 3 = 27"
+     ]
+    },
+    "dur": 3.4
+   },
+   {
+    "who": "bolt",
+    "say": "Try 9 times 7 with your fingers now!",
+    "prop": {
+     "items": [
+      "🤔"
+     ],
+     "labels": [
+      "9 × 7 = ?"
+     ]
+    },
+    "dur": 3.4
+   },
+   {
+    "who": "momo",
+    "say": "Comment your answer below! Hoo hoo!",
+    "prop": {
+     "items": [
+      "💬"
+     ]
+    },
+    "dur": 3.0
+   }
+  ]
+ },
+ {
+  "id": "kids-science-1-why-sky-blue",
+  "series": "Science Time",
+  "title": "Why is the sky blue?",
+  "icon": [
+   "🌤️"
+  ],
+  "seed": 5,
+  "beats": [
+   {
+    "who": "momo",
+    "say": "Bolt, why is the sky blue?",
+    "prop": {
+     "items": [
+      "🌤️"
+     ]
+    },
+    "dur": 2.8
+   },
+   {
+    "who": "bolt",
+    "say": "Sunlight looks white, but it has all the colours inside!",
+    "prop": {
+     "items": [
+      "☀️",
+      "🌈"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "bolt",
+    "say": "When it hits the air, blue light bounces around the most.",
+    "prop": {
+     "items": [
+      "💙",
+      "💨"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "bolt",
+    "say": "So blue light reaches our eyes from every part of the sky!",
+    "prop": {
+     "items": [
+      "👀",
+      "🔵"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "momo",
+    "say": "Then why are sunsets orange?",
+    "prop": {
+     "items": [
+      "🌅"
+     ]
+    },
+    "dur": 3.0
+   },
+   {
+    "who": "bolt",
+    "say": "The light travels further, so the blue gets scattered away!",
+    "prop": {
+     "items": [
+      "🧡",
+      "❤️"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "momo",
+    "say": "Wow! Science is everywhere!",
+    "prop": {
+     "items": [
+      "🔬"
+     ]
+    },
+    "dur": 3.0
+   }
+  ]
+ },
+ {
+  "id": "kids-english-1-new-words",
+  "series": "Word Power",
+  "title": "3 big words for little kids",
+  "icon": [
+   "📖"
+  ],
+  "seed": 6,
+  "beats": [
+   {
+    "who": "bolt",
+    "say": "Let's learn 3 big words today!",
+    "prop": {
+     "items": [
+      "📖"
+     ]
+    },
+    "dur": 3.0
+   },
+   {
+    "who": "bolt",
+    "say": "Enormous means very, very big. Like an elephant!",
+    "prop": {
+     "items": [
+      "🐘"
+     ],
+     "labels": [
+      "enormous"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "momo",
+    "say": "Tiny means very small. Like an ant!",
+    "prop": {
+     "items": [
+      "🐜"
+     ],
+     "labels": [
+      "tiny"
+     ]
+    },
+    "dur": 3.6
+   },
+   {
+    "who": "bolt",
+    "say": "Delicious means it tastes super yummy!",
+    "prop": {
+     "items": [
+      "🍕"
+     ],
+     "labels": [
+      "delicious"
+     ]
+    },
+    "dur": 3.6
+   },
+   {
+    "who": "momo",
+    "say": "An enormous elephant ate a tiny, delicious cake!",
+    "prop": {
+     "items": [
+      "🐘",
+      "🍰"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "bolt",
+    "say": "Can you make a sentence with these words?",
+    "prop": {
+     "items": [
+      "✏️"
+     ]
+    },
+    "dur": 3.4
+   }
+  ]
+ },
+ {
+  "id": "kids-habits-1-brush-teeth",
+  "series": "Good Habits",
+  "title": "Why do we brush our teeth?",
+  "icon": [
+   "🪥"
+  ],
+  "seed": 7,
+  "beats": [
+   {
+    "who": "momo",
+    "say": "Bolt, why do I have to brush my teeth?",
+    "prop": {
+     "items": [
+      "🦷"
+     ]
+    },
+    "dur": 3.2
+   },
+   {
+    "who": "bolt",
+    "say": "Tiny germs love the sugar left on your teeth.",
+    "prop": {
+     "items": [
+      "🦠",
+      "🍬"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "bolt",
+    "say": "They make holes called cavities. Ouch!",
+    "prop": {
+     "items": [
+      "🦷"
+     ],
+     "marks": [
+      "❌"
+     ]
+    },
+    "dur": 3.4
+   },
+   {
+    "who": "bolt",
+    "say": "Brush two times a day, for two whole minutes.",
+    "prop": {
+     "items": [
+      "🌞",
+      "🌙"
+     ],
+     "labels": [
+      "morning",
+      "night"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "momo",
+    "say": "Morning and night! Got it!",
+    "prop": {
+     "items": [
+      "🪥"
+     ],
+     "marks": [
+      "✅"
+     ]
+    },
+    "dur": 3.0
+   },
+   {
+    "who": "bolt",
+    "say": "Shiny teeth, big smiles!",
+    "prop": {
+     "items": [
+      "😁"
+     ]
+    },
+    "dur": 3.0
+   }
+  ]
+ },
+ {
+  "id": "kids-space-1-sun-star",
+  "series": "Space Explorers",
+  "title": "Is the Sun a star?",
+  "icon": [
+   "☀️"
+  ],
+  "seed": 8,
+  "beats": [
+   {
+    "who": "momo",
+    "say": "Bolt, is the Sun a star?",
+    "prop": {
+     "items": [
+      "☀️"
+     ]
+    },
+    "dur": 2.8
+   },
+   {
+    "who": "bolt",
+    "say": "Yes! The Sun is a giant star.",
+    "prop": {
+     "items": [
+      "☀️",
+      "⭐"
+     ]
+    },
+    "dur": 3.2
+   },
+   {
+    "who": "bolt",
+    "say": "It looks big because it's the closest star to Earth.",
+    "prop": {
+     "items": [
+      "🌍",
+      "☀️"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "bolt",
+    "say": "You could fit about one million Earths inside it!",
+    "prop": {
+     "items": [
+      "🌍",
+      "🌍",
+      "🌍",
+      "🌍"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "momo",
+    "say": "So the night stars are suns too?",
+    "prop": {
+     "items": [
+      "✨",
+      "🌙"
+     ]
+    },
+    "dur": 3.4
+   },
+   {
+    "who": "bolt",
+    "say": "Yes! They are just very, very far away.",
+    "prop": {
+     "items": [
+      "🔭"
+     ]
+    },
+    "dur": 3.4
+   },
+   {
+    "who": "momo",
+    "say": "Space is amazing! Hoo hoo!",
+    "prop": {
+     "items": [
+      "🚀"
+     ]
+    },
+    "dur": 3.0
+   }
+  ]
+ },
+ {
+  "id": "kids-animals-1-owl-facts",
+  "series": "Animal Facts",
+  "title": "3 cool owl facts!",
+  "icon": [
+   "🦉"
+  ],
+  "seed": 9,
+  "beats": [
+   {
+    "who": "bolt",
+    "say": "Momo, tell us some owl facts!",
+    "prop": {
+     "items": [
+      "🦉"
+     ]
+    },
+    "dur": 3.0
+   },
+   {
+    "who": "momo",
+    "say": "Owls can turn their heads almost all the way around!",
+    "prop": {
+     "items": [
+      "🔄"
+     ]
+    },
+    "dur": 4.0
+   },
+   {
+    "who": "momo",
+    "say": "Our big eyes help us see in the dark.",
+    "prop": {
+     "items": [
+      "👀",
+      "🌙"
+     ]
+    },
+    "dur": 3.6
+   },
+   {
+    "who": "momo",
+    "say": "And our soft feathers make us fly super quietly!",
+    "prop": {
+     "items": [
+      "🪶",
+      "🤫"
+     ]
+    },
+    "dur": 3.8
+   },
+   {
+    "who": "bolt",
+    "say": "Wow! Owls are night-time superheroes!",
+    "prop": {
+     "items": [
+      "🦸"
+     ]
+    },
+    "dur": 3.4
+   },
+   {
+    "who": "momo",
+    "say": "Which animal should we learn next? Comment!",
+    "prop": {
+     "items": [
+      "💬"
+     ]
+    },
+    "dur": 3.4
+   }
+  ]
+ },
+ {
+  "id": "kids-money-1-save-spend",
+  "series": "Money Smart",
+  "title": "Save or spend?",
+  "icon": [
+   "🐷"
+  ],
+  "seed": 10,
+  "beats": [
+   {
+    "who": "momo",
+    "say": "I got 100 rupees! Should I spend it all?",
+    "prop": {
+     "items": [
+      "💰"
+     ],
+     "labels": [
+      "Rs 100"
+     ]
+    },
+    "dur": 3.6
+   },
+   {
+    "who": "bolt",
+    "say": "Try this: spend some, save some!",
+    "prop": {
+     "items": [
+      "🛍️",
+      "🐷"
+     ]
+    },
+    "dur": 3.2
+   },
+   {
+    "who": "bolt",
+    "say": "Spend 50 on a treat today.",
+    "prop": {
+     "items": [
+      "🍦"
+     ],
+     "labels": [
+      "Rs 50"
+     ]
+    },
+    "dur": 3.2
+   },
+   {
+    "who": "bolt",
+    "say": "Save 50 in your piggy bank.",
+    "prop": {
+     "items": [
+      "🐷"
+     ],
+     "labels": [
+      "Rs 50"
+     ]
+    },
+    "dur": 3.2
+   },
+   {
+    "who": "momo",
+    "say": "And next time I'll have more for something big!",
+    "prop": {
+     "items": [
+      "🚲"
+     ]
+    },
+    "dur": 3.6
+   },
+   {
+    "who": "bolt",
+    "say": "Little savings grow into big dreams!",
+    "prop": {
+     "items": [
+      "🌱",
+      "🌳"
+     ]
+    },
+    "dur": 3.4
+   }
+  ]
+ }
+]
