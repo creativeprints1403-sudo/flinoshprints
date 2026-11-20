@@ -109,5 +109,140 @@
       "productivity"
     ],
     "category": "27"
+  },
+  {
+    "date": "2026-11-26",
+    "video": "assets/youtube/viral-inbox-30-seconds.mp4",
+    "title": "Stop reading every email (do this instead) #shorts",
+    "description": "Turn 50 unread emails into a 5-line to-do list with one ChatGPT prompt.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "chatgpt email",
+      "email productivity",
+      "inbox zero",
+      "ai tools",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-11-27",
+    "video": "assets/youtube/viral-meeting-notes.mp4",
+    "title": "Your meeting notes are useless. Fix them in 10 seconds #shorts",
+    "description": "Turn messy meeting notes into a clear action table with owners and deadlines using ChatGPT.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "meeting notes",
+      "chatgpt prompts",
+      "productivity",
+      "ai for work",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-11-28",
+    "video": "assets/youtube/viral-polite-no.mp4",
+    "title": "How to say no by email without guilt (AI does it) #shorts",
+    "description": "Get ChatGPT to write a warm, firm email that says no and offers an alternative.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "email writing",
+      "chatgpt email",
+      "say no",
+      "work tips",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-11-29",
+    "video": "assets/youtube/viral-excel-messy-names.mp4",
+    "title": "Fix messy names in Excel with ONE formula #shorts",
+    "description": "Extra spaces and random capitals? =PROPER(TRIM(A2)) fixes them. Ask ChatGPT for the formula, paste, drag down.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "excel formulas",
+      "excel tips",
+      "proper trim",
+      "chatgpt excel",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-11-30",
+    "video": "assets/youtube/viral-long-pdf.mp4",
+    "title": "Don't read the whole PDF. Use this prompt #shorts",
+    "description": "Summarise a long document into 5 bullet points plus every number and date with one ChatGPT prompt.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "summarize pdf",
+      "chatgpt prompts",
+      "ai summary",
+      "study tips",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-12-01",
+    "video": "assets/youtube/viral-plan-your-week.mp4",
+    "title": "Plan your whole week with 1 AI prompt #shorts",
+    "description": "Give ChatGPT your tasks and deadlines and get a Monday to Friday plan with the hard work in the mornings.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "weekly planning",
+      "chatgpt productivity",
+      "time management",
+      "ai planner",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-12-02",
+    "video": "assets/youtube/viral-ask-me-questions.mp4",
+    "title": "This one line fixes bad AI answers #shorts",
+    "description": "Add 'Before you answer, ask me 3 questions' to any prompt and get answers that fit what you actually need.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "chatgpt tips",
+      "prompt engineering",
+      "ai prompts",
+      "chatgpt hacks",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-12-03",
+    "video": "assets/youtube/viral-reply-templates.mp4",
+    "title": "Never type the same reply twice #shorts",
+    "description": "Get ChatGPT to write reply templates for your most common customer questions: price, delivery and refunds.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "customer service",
+      "reply templates",
+      "small business",
+      "chatgpt business",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-12-04",
+    "video": "assets/youtube/viral-excel-split-names.mp4",
+    "title": "Split full names in Excel instantly #shorts",
+    "description": "First and last name in one cell? =TEXTSPLIT(A2,\" \") splits them in Excel 365. Ask ChatGPT for the formula.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "excel textsplit",
+      "excel tips",
+      "split names excel",
+      "chatgpt excel",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
   }
 ]
