@@ -7,7 +7,8 @@ for the channel, with the youtube.upload scope). Without them it does nothing.
 Queue entries: {"date": "YYYY-MM-DD", "video": "assets/reels/x.mp4" or URL,
 "title": "...", "description": "...", "tags": [...], "privacy": "public",
 optional "category" (YouTube category id, default "22") and "thumbnail" (a JPG/PNG
-path; custom thumbnails need a phone-verified channel)}.
+path; custom thumbnails need a phone-verified channel) and "made_for_kids"
+(true for content aimed at children, as COPPA requires; default false)}.
 Uploaded entries are logged in social/youtube-posted.json.
 
 Note: until Google audits the Cloud project, YouTube locks API uploads to
@@ -61,7 +62,7 @@ def video_bytes(src):
 def upload(access, entry):
     meta = {"snippet": {"title": entry["title"][:100], "description": entry.get("description", ""),
                         "tags": entry.get("tags", []), "categoryId": entry.get("category", "22")},
-            "status": {"privacyStatus": entry.get("privacy", "public"), "selfDeclaredMadeForKids": False}}
+            "status": {"privacyStatus": entry.get("privacy", "public"), "selfDeclaredMadeForKids": bool(entry.get("made_for_kids", False))}}
     data = video_bytes(entry["video"])
     start = urllib.request.Request(
         "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
