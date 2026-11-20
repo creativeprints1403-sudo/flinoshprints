@@ -92,6 +92,27 @@ def amazon_products(have):
         }
 
 
+def amazon_listings(have):
+    """The rest of the Amazon catalogue from social/amazon-listings.json, pinned
+    with the Amazon photo and linked to the product page. Each listing has a
+    "from" date so new pins trickle out a few a day instead of all at once."""
+    path = ROOT / "social" / "amazon-listings.json"
+    if not path.exists():
+        return
+    for p in json.loads(path.read_text()):
+        if p["from"] > TODAY or p["asin"] in have or any(w in p["title"].lower() for w in SKIP):
+            continue
+        have.add(p["asin"])
+        yield {
+            "guid": "https://www.amazon.in/dp/" + p["asin"],
+            "title": f"{p['title']} | Flinosh Prints on Amazon",
+            "description": f"{p['title']} by Flinosh Prints. Designed in Goa, delivered across India. Order on Amazon.in.",
+            "image": p["image"],
+            "alt": f"{p['title']} by Flinosh Prints",
+            "link": "https://www.amazon.in/dp/" + p["asin"],
+        }
+
+
 def idea_pages():
     for path in sorted((ROOT / "ideas").glob("*.html")):
         page = path.read_text()
@@ -135,6 +156,7 @@ def main():
         have.add(stem(it["guid"]))
         have.update(re.findall(r"/dp/([A-Z0-9]{10})", it["link"]))
     items += list(amazon_products(have))
+    items += list(amazon_listings(have))
     seen = json.loads(DATES.read_text()) if DATES.exists() else {}
     for it in items:
         seen.setdefault(it["guid"], TODAY)
