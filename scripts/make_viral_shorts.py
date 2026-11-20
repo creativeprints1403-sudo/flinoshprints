@@ -46,6 +46,52 @@ SHORTS = [
      "=TEXTSPLIT(A2, \" \")  in Excel 365."),
 ]
 
+TIP = {"label": "Try this:"}
+ADCUT = {"label": "How it works:", "end": ["Your ad,", "ready in", "2 minutes."],
+         "cta": "Try 3 videos free: adcut.onrender.com"}
+
+SHORTS += [
+    ("money-50-30-20", "SPLIT|your salary like this.", "Salary gone by the 20th?",
+     "50% needs. 30% wants. 20% savings. Move the 20% out on payday.",
+     "Savings happen first, not last.", TIP),
+    ("money-rule-of-72", "DOUBLE|your money: do this maths.", "When will your savings double?",
+     "Divide 72 by the yearly interest rate. 72 / 8% = 9 years.",
+     "The Rule of 72, in your head.", TIP),
+    ("english-very-words", "STOP|saying 'very' in English.", "Sound smarter in one swap.",
+     "Very good = excellent. Very tired = exhausted. Very big = huge. Very happy = thrilled.",
+     "Fewer words, stronger English.", {"label": "Say this instead:"}),
+    ("english-late-reply", "DON'T|say 'sorry for the late reply'.", "It makes you sound guilty.",
+     "Say: 'Thank you for your patience.'",
+     "Polite, confident, professional.", {"label": "Say this instead:"}),
+    ("tech-clipboard-history", "YOUR|PC remembers everything you copy.", "Copied over something important?",
+     "Press Windows + V. Turn on clipboard history once. Pick any item you copied.",
+     "Never lose a copied line again.", {"label": "On Windows:"}),
+    ("tech-reopen-tab", "CLOSED|a tab by mistake?", "Don't search for it again.",
+     "Press Ctrl + Shift + T. Press again for the tab before that.",
+     "Works in Chrome, Edge and Firefox.", {"label": "Press this:"}),
+    ("productivity-2-minute-rule", "THIS|rule kills your to-do list.", "Small tasks pile up all day.",
+     "If it takes less than 2 minutes, do it now. Reply, file, pay, delete.",
+     "The 2-minute rule. Tiny tasks gone.", TIP),
+    ("study-feynman", "LEARN|anything faster.", "Reading again and again doesn't stick.",
+     "Explain the topic in simple words, like to a 12-year-old. Where you get stuck, re-learn that part.",
+     "The Feynman technique.", TIP),
+    ("phone-copy-text-photo", "COPY|text from any photo.", "Typing from a photo or a board?",
+     "Open Google Lens, point at the text, tap Text, then Copy.",
+     "Paste it anywhere. Zero typing.", {"label": "On your phone:"}),
+    ("excel-today-date", "STOP|typing today's date.", "Typing dates in Excel all day?",
+     "Press Ctrl + ; (semicolon) in any cell.",
+     "Today's date, instantly.", {"label": "Press this:"}),
+    ("adcut-photos-to-video", "PHOTOS|to video ad in 2 minutes.", "No time to make Reels for your shop?",
+     "1. Upload shop photos. 2. Tap AI write. 3. Pick a style. Done.",
+     "A promo video for Reels, Shorts and WhatsApp Status.", ADCUT),
+    ("adcut-languages", "ADS|in Hindi, Marathi, Konkani, Tamil.", "Your customers don't all read English.",
+     "Pick a language, tap AI write, make the video.",
+     "Speak to customers in their own language.", ADCUT),
+    ("adcut-pricing", "VIDEO|ads from Rs 20 each.", "Editors charge thousands per video.",
+     "Rs 499 for 10 videos. Rs 1,499 for 50. Rs 3,999 for 200. Pay once, no subscription.",
+     "First 3 videos free, no card.", dict(ADCUT, label="Pricing:")),
+]
+
 def font(name, size):
     return ImageFont.truetype(name if name.startswith("/") else F + name, size)
 
@@ -68,7 +114,8 @@ HOOK, PROB, PROMPT, RESULT, CTA = 2.2, 2.6, 6.0, 3.2, 2.5
 TOTAL = HOOK + PROB + PROMPT + RESULT + CTA
 
 def frame(t, spec):
-    _, hook, problem, prompt, result = spec
+    _, hook, problem, prompt, result = spec[:5]
+    opt = spec[5] if len(spec) > 5 else {}
     img = Image.new("RGB", (W, H), NAVY)
     d = ImageDraw.Draw(img)
     # progress bar keeps people watching
@@ -97,7 +144,7 @@ def frame(t, spec):
         return img
     t -= PROB
     if t < PROMPT:
-        d.text((x, 520), "Paste this into ChatGPT:", font=font("InterDisplay-ExtraBold.otf", 72), fill=AMBER)
+        d.text((x, 520), opt.get("label", "Paste this into ChatGPT:"), font=font("InterDisplay-ExtraBold.otf", 72), fill=AMBER)
         mf = font(MONO, 54)
         shown = prompt[: int(len(prompt) * min(1, t / (PROMPT * 0.7)))]
         lines = wrap(d, prompt, mf, W - 240)
@@ -124,10 +171,12 @@ def frame(t, spec):
     f = font("InterDisplay-Black.otf", 120)
     s = 1 + 0.03 * math.sin(t * 6)
     y = 640
-    for i, ln in enumerate(["That's", "hours", "saved."]):
+    for i, ln in enumerate(opt.get("end", ["That's", "hours", "saved."])):
         d.text((x, y), ln, font=font("InterDisplay-Black.otf", int(130 * s)), fill=AMBER if i == 1 else WHITE)
         y += 160
-    d.text((x, y + 60), "Follow for one every day.", font=font("InterDisplay-ExtraBold.otf", 70), fill=WHITE)
+    sub = font("InterDisplay-ExtraBold.otf", 70)
+    for ln in wrap(d, opt.get("cta", "Follow for one every day."), sub, W - 160):
+        d.text((x, y + 60), ln, font=sub, fill=WHITE); y += 90
     return img
 
 def beat(path, seconds):

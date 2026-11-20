@@ -2,9 +2,12 @@ name: YouTube uploads
 
 on:
   schedule:
+    - cron: "30 3 * * *"   # 09:00 IST
     - cron: "0 7 * * *"    # 12:30 IST
+    - cron: "30 9 * * *"   # 15:00 IST
     - cron: "30 12 * * *"  # 18:00 IST
-    - cron: "0 15 * * *"   # 20:30 IST (GitHub runs these late; Claude also dispatches)
+    - cron: "30 14 * * *"  # 20:00 IST
+    - cron: "0 16 * * *"   # 21:30 IST (GitHub runs these late; Claude also dispatches)
   workflow_dispatch:
     inputs:
       check_only:
@@ -12,9 +15,9 @@ on:
         type: boolean
         default: false
       per_day:
-        description: "Daily upload cap for this run (default 3)"
+        description: "Daily upload cap for this run (default 6)"
         type: string
-        default: "3"
+        default: "6"
 
 permissions:
   contents: write
@@ -32,7 +35,7 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           CHECK_ONLY: ${{ inputs.check_only }}
-          YT_PER_DAY: ${{ inputs.per_day || '3' }}
+          YT_PER_DAY: ${{ inputs.per_day || '6' }}
         run: python3 scripts/post_youtube.py
       - name: Record what was uploaded
         if: always()
