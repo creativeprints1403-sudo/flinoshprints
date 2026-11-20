@@ -1,8 +1,9 @@
 name: Instagram posts (AdCut)
 
 on:
-  schedule:
-    - cron: "0 14 * * *"  # every day at 19:30 IST
+  # schedule paused 2026-11-20 after Meta restricted the Flinosh business account
+  # schedule:
+  #   - cron: "0 14 * * *"  # every day at 19:30 IST
   workflow_dispatch:
     inputs:
       check_only:

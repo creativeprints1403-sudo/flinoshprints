@@ -2,9 +2,9 @@ name: Instagram posts
 
 on:
   schedule:
-    # GitHub often runs schedules late or drops them, so this checks every
-    # 30 minutes (8:43 am to 10:13 pm IST) and posts when a slot in IG_SLOTS is due.
-    - cron: "13,43 3-16 * * *"
+    # Checks hourly (8:43 am to 9:43 pm IST) and posts when a slot in IG_SLOTS is due.
+    # Kept to 2 posts a day after Meta restricted the business account (2026-11-20).
+    - cron: "13 3-16 * * *"
   workflow_dispatch:
     inputs:
       check_only:
@@ -28,7 +28,7 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           CHECK_ONLY: ${{ inputs.check_only }}
           FORCE: ${{ github.event_name == 'workflow_dispatch' }}
-          IG_SLOTS: "09:00,11:00,13:00,15:00,17:00,19:00,20:30,21:30"
+          IG_SLOTS: "11:40,19:10"
         run: python3 scripts/post_instagram.py
       - name: Record what was posted
         run: |
