@@ -143,7 +143,108 @@ def end_frame(title, lines, foot, brand=None):
     return im
 
 
+HOOK_SCENE_S, HOOK_END_S = 1.4, 1.6
+
+
+def caption(d, y, text, f, fill, box):
+    tw = d.textlength(text, font=f)
+    d.rounded_rectangle(((W - tw) / 2 - 36, y - 18, (W + tw) / 2 + 36, y + f.size + 26), 26, fill=box)
+    centred(d, y, text, f, fill)
+
+
+def hook_frame(photo, bg, zoom, top, brand, order=None):
+    """Hook-first look: the product fills the frame and moves from frame 1,
+    with bold text on top. Without photo, a plain card."""
+    ink, pink = tuple(brand.get("ink", INK)), tuple(brand.get("button", PINK))
+    im = Image.new("RGB", (W, H), bg)
+    d = ImageDraw.Draw(im)
+    if photo:
+        scale = min(1040 / photo.width, 1340 / photo.height) * zoom
+        ph = photo.resize((int(photo.width * scale), int(photo.height * scale)), Image.LANCZOS)
+        x, y = (W - ph.width) // 2, 470 + (1240 - ph.height) // 2
+        im.paste(ph, (x, y))
+        if brand.get("logo", "assets/logo-mark.webp"):
+            wm = watermark(ph.size)
+            im.paste(wm, (x, y), wm)
+    y = 170
+    for i, line in enumerate(top):
+        f = fit(d, line, SANS_BOLD, 104 if i == 0 else 66, 940)
+        if i == 0:
+            caption(d, y, line, f, "white", pink)
+        else:
+            caption(d, y, line, f, ink, (255, 255, 255))
+        y += f.size + 70
+    if order:
+        f = fit(d, order[0], SANS_BOLD, 64, 900)
+        caption(d, 1500, order[0], f, "white", (30, 22, 14))
+        if len(order) > 1:
+            f2 = fit(d, order[1], SANS_BOLD, 48, 900)
+            caption(d, 1630, order[1], f2, ink, (255, 255, 255))
+    footer(im, d, brand)
+    return im
+
+
+def beat_wav(path, seconds):
+    """A soft 118 bpm kick and pad, stdlib only, so the reel isn't silent."""
+    import math, struct, wave
+    sr, step = 22050, 60 / 118
+    n = int(sr * seconds)
+    out = [0.0] * n
+    for k in range(int(seconds / step) + 1):
+        s0 = int(k * step * sr)
+        for j in range(min(int(0.22 * sr), n - s0)):
+            t = j / sr
+            out[s0 + j] += 0.8 * math.sin(2 * math.pi * (55 + 90 * math.exp(-t * 30)) * t) * math.exp(-t * 9)
+    for i in range(n):
+        t = i / sr
+        out[i] += 0.05 * (math.sin(2 * math.pi * 220 * t) + math.sin(2 * math.pi * 277.2 * t)
+                          + math.sin(2 * math.pi * 329.6 * t)) * min(1, t * 3)
+    peak = max(abs(v) for v in out) or 1
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
+        w.writeframes(b"".join(struct.pack("<h", int(v / peak * 0.7 * 32767)) for v in out))
+
+
+def build_hook(reel):
+    """About 7 seconds: hook on a moving product shot in the first second,
+    quick cuts, and an ending that matches the opening so it loops."""
+    brand = reel.get("brand", {})
+    scenes = reel["scenes"][:4]
+    photos = [load(s["image"], s.get("crop")) if s.get("image") else None for s in scenes]
+    end = reel.get("end", {})
+    order = end.get("lines", ["WhatsApp 95793 06816", "flinoshprints.com"])
+    n = int(HOOK_SCENE_S * FPS)
+    out = OUT / f"{reel['name']}.mp4"
+    with tempfile.TemporaryDirectory() as tmp:
+        k = 0
+        for i, (s, photo) in enumerate(zip(scenes, photos)):
+            bg = tuple(s.get("bg") or brand.get("bg") or BGS[i % len(BGS)])
+            top = reel["hook"] if i == 0 else [s.get("headline", ""), s.get("subline", "")]
+            top = [t for t in top if t]
+            for j in range(n):
+                t = j / FPS
+                # first scene punches in from 1.15 to 1.0, the rest drift in slowly
+                zoom = 1.0 + 0.15 * max(0, 1 - t / 0.35) ** 2 if i == 0 else 1.0 + 0.05 * j / n
+                hook_frame(photo, bg, zoom, top, brand).save(f"{tmp}/{k:05d}.jpg", quality=90)
+                k += 1
+        bg = tuple(scenes[0].get("bg") or brand.get("bg") or BGS[0])
+        for j in range(int(HOOK_END_S * FPS)):
+            hook_frame(photos[0], bg, 1.0 + 0.04 * j / (HOOK_END_S * FPS),
+                       [reel.get("hook_end", end.get("title", "Order yours today"))], brand, order
+                       ).save(f"{tmp}/{k:05d}.jpg", quality=90)
+            k += 1
+        beat_wav(f"{tmp}/beat.wav", k / FPS)
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(FPS),
+                        "-i", f"{tmp}/%05d.jpg", "-i", f"{tmp}/beat.wav",
+                        "-shortest", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-profile:v", "high",
+                        "-crf", "20", "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart",
+                        str(out)], check=True)
+    print(f"{out.relative_to(ROOT)}: {k / FPS:.1f}s")
+
+
 def build(reel):
+    if reel.get("hook"):
+        return build_hook(reel)
     frames = []
     brand = reel.get("brand", {})
     for i, s in enumerate(reel["scenes"]):
