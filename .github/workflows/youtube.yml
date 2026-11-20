@@ -11,6 +11,10 @@ on:
         description: "Only check the connection, don't upload"
         type: boolean
         default: false
+      per_day:
+        description: "Daily upload cap for this run (default 3)"
+        type: string
+        default: "3"
 
 permissions:
   contents: write
@@ -28,7 +32,7 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           CHECK_ONLY: ${{ inputs.check_only }}
-          YT_PER_DAY: "3"
+          YT_PER_DAY: ${{ inputs.per_day || '3' }}
         run: python3 scripts/post_youtube.py
       - name: Record what was uploaded
         if: always()
