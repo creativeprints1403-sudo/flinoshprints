@@ -9,6 +9,7 @@ import html
 import json
 import re
 import subprocess
+import urllib.parse
 from email.utils import format_datetime
 from pathlib import Path
 
@@ -25,7 +26,7 @@ def text(fragment):
 def cards(page):
     for m in re.finditer(r'<article class="(?:feature|product)[^"]*">(.*?)</article>', page, re.S):
         body = m.group(1)
-        img = re.search(r'<img src="(assets/[^"]+)" alt="([^"]*)"', body)
+        img = re.search(r'<img src="(assets/[^"]+|https://m\.media-amazon\.com/[^"]+)" alt="([^"]*)"', body)
         title = re.search(r"<h3>(.*?)</h3>", body, re.S)
         if not img or not title:
             continue
@@ -36,13 +37,58 @@ def cards(page):
         parts = [text(spec.group(1)) + "."] if spec else []
         if desc:
             parts.append(text(desc.group(1)))
+        src = img.group(1) if img.group(1).startswith("http") else SITE + img.group(1)
         yield {
-            "guid": SITE + img.group(1),
+            "guid": src,
             "title": text(title.group(1)),
             "description": " ".join(parts),
-            "image": SITE + img.group(1),
+            "image": premium_card(src) or src,
             "alt": html.unescape(img.group(2)),
             "link": link,
+        }
+
+
+STORE = "https://www.amazon.in/s?me=A27RXOS2FK94TR&k="
+SKIP = ("friends",)  # copyrighted designs stay off Pinterest
+
+
+def stem(url):
+    """Amazon image id or file name, e.g. 81TG2+Oz3yL._SL800_.jpg -> 81TG2-Oz3yL."""
+    return Path(url).name.split(".")[0].replace("+", "-")
+
+
+def premium_card(url):
+    """The watermarked premium card made for Instagram, when there is one."""
+    card = ROOT / "assets" / "ig" / (stem(url) + ".jpg")
+    return SITE + card.relative_to(ROOT).as_posix() if card.exists() else None
+
+
+def amazon_products(have):
+    """Amazon listings from social/instagram-products.json that the site cards
+    don't already cover, pinned with their premium card and linked to Amazon."""
+    path = ROOT / "social" / "instagram-products.json"
+    if not path.exists():
+        return
+    for p in json.loads(path.read_text()):
+        if p.get("video") or not p.get("card") or not p.get("title"):
+            continue
+        if any(w in p["title"].lower() for w in SKIP) or stem(p["card"]) in have:
+            continue
+        asin = re.search(r"/dp/([A-Z0-9]{10})", p.get("amazon", ""))
+        if asin and asin.group(1) in have:
+            continue
+        have.add(stem(p["card"]))
+        if asin:
+            have.add(asin.group(1))
+        feats = " · ".join(p.get("features", []))
+        desc = f"{p['title']} by Flinosh Prints. {feats}." + (f" For {p['use']}." if p.get("use") else "")
+        yield {
+            "guid": SITE + p["card"],
+            "title": f"{p['title']} | Flinosh Prints on Amazon",
+            "description": desc + " Designed in Goa, delivered across India.",
+            "image": SITE + p["card"],
+            "alt": f"{p['title']} by Flinosh Prints",
+            "link": p["amazon"] if asin else STORE + urllib.parse.quote_plus(p["title"]),
         }
 
 
@@ -84,6 +130,11 @@ def esc(s):
 def main():
     index = (ROOT / "index.html").read_text()
     items = list(idea_pages()) + list(cards(index))
+    have = set()
+    for it in items:
+        have.add(stem(it["guid"]))
+        have.update(re.findall(r"/dp/([A-Z0-9]{10})", it["link"]))
+    items += list(amazon_products(have))
     seen = json.loads(DATES.read_text()) if DATES.exists() else {}
     for it in items:
         seen.setdefault(it["guid"], TODAY)
