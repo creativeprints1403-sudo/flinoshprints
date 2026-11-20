@@ -143,7 +143,8 @@ def media(entry):
 
 def next_product(posted):
     """The product posted longest ago (never-posted first), skipping any
-    photo that went out in the last 3 days."""
+    photo that went out in the last 3 days. Season products (those with an
+    "until" date, like Christmas) come before everything else while in date."""
     if not PRODUCTS.exists():
         return None
     today = datetime.now(IST).date().isoformat()
@@ -157,7 +158,7 @@ def next_product(posted):
     fresh = [p for p in products if not any(k.endswith(media(p)) for k in recent)]
     if not fresh:
         return None
-    return min(fresh, key=lambda p: last.get(media(p), -1))
+    return min(fresh, key=lambda p: ("until" not in p, last.get(media(p), -1), p.get("until", "")))
 
 
 def slot_due(posted):
