@@ -2,7 +2,9 @@ name: YouTube uploads
 
 on:
   schedule:
-    - cron: "30 12 * * *"  # every day at 18:00 IST
+    - cron: "0 7 * * *"    # 12:30 IST
+    - cron: "30 12 * * *"  # 18:00 IST
+    - cron: "0 15 * * *"   # 20:30 IST (GitHub runs these late; Claude also dispatches)
   workflow_dispatch:
     inputs:
       check_only:
@@ -26,6 +28,7 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           CHECK_ONLY: ${{ inputs.check_only }}
+          YT_PER_DAY: "3"
         run: python3 scripts/post_youtube.py
       - name: Record what was uploaded
         if: always()

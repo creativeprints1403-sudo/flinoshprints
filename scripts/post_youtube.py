@@ -26,7 +26,6 @@ ROOT = Path(__file__).resolve().parent.parent
 QUEUE = ROOT / "social" / "youtube-queue.json"
 POSTED = ROOT / "social" / "youtube-posted.json"
 IST = timezone(timedelta(hours=5, minutes=30))
-STALE_DAYS = 3
 
 
 def token():
@@ -104,9 +103,15 @@ def main():
     posted = json.loads(POSTED.read_text()) if POSTED.exists() else []
     done = {p["key"] for p in posted}
     today = datetime.now(IST).date()
-    oldest = (today - timedelta(days=STALE_DAYS)).isoformat()
-    due = [e for e in sorted(queue, key=lambda e: e["date"])
-           if oldest <= e["date"] <= today.isoformat() and e["date"] + e["video"] not in done]
+    # Dates only set the order: each run uploads the next video not yet up, so a
+    # missed day just shifts the queue. YT_PER_DAY caps uploads per IST day
+    # (YouTube's default API quota allows about 6).
+    per_day = int(os.environ.get("YT_PER_DAY") or 3)
+    made = sum(1 for p in posted if not p.get("failed") and p["posted_at"].startswith(today.isoformat()))
+    if made >= per_day:
+        print(f"Already uploaded {made} today.")
+        return
+    due = [e for e in sorted(queue, key=lambda e: e["date"]) if e["date"] + e["video"] not in done]
     if not due:
         print(f"Nothing due on {today}.")
         return
