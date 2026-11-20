@@ -1,0 +1,31 @@
+name: Pinterest feed
+
+# Rebuilds feed.xml every morning so the Amazon listings in
+# social/amazon-listings.json reach Pinterest a few a day.
+on:
+  schedule:
+    - cron: "15 0 * * *"  # 05:45 IST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: feeds
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild feed.xml
+        run: python3 scripts/build_feeds.py
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain feed.xml scripts/feed-dates.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git add feed.xml scripts/feed-dates.json sitemap.xml
+            git commit -m "Release today's Amazon pins"
+            git pull --rebase -q origin main
+            git push
+          fi
