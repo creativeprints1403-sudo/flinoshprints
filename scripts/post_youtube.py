@@ -43,8 +43,12 @@ def token():
 def channel(access):
     req = urllib.request.Request("https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true",
                                  headers={"Authorization": f"Bearer {access}"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        items = json.load(r).get("items", [])
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            items = json.load(r).get("items", [])
+    except urllib.error.HTTPError as e:
+        # an upload-only token (youtube.upload scope) can't read channel details
+        return f"(name not readable with upload-only access, {e.code}; the token itself works)"
     return items[0]["snippet"]["title"] if items else "(no channel)"
 
 
