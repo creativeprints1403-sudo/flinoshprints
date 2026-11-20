@@ -57,7 +57,12 @@
     ],
     "end": {
       "title": "Order your wedding set"
-    }
+    },
+    "hook": [
+      "YOUR NAMES HERE",
+      "on your wedding invitation"
+    ],
+    "hook_end": "Order your wedding set"
   },
   {
     "name": "christmas-collection",
@@ -120,7 +125,12 @@
         "WhatsApp 95793 06816"
       ],
       "foot": "Order by 18 December for Christmas delivery"
-    }
+    },
+    "hook": [
+      "CHRISTMAS IS COMING",
+      "tags, cards and bookmarks"
+    ],
+    "hook_end": "Shop the Christmas collection"
   },
   {
     "name": "bookmarks",
@@ -158,7 +168,12 @@
         "WhatsApp 95793 06816"
       ],
       "foot": "Link in bio · names printed on request"
-    }
+    },
+    "hook": [
+      "STOP FOLDING PAGES",
+      "use a bookmark you love"
+    ],
+    "hook_end": "A bookmark for every reader"
   },
   {
     "name": "shagun-envelopes",
@@ -196,7 +211,12 @@
         "WhatsApp 95793 06816"
       ],
       "foot": "Bulk rates for planners and decorators"
-    }
+    },
+    "hook": [
+      "DON'T GIVE SHAGUN",
+      "in a plain envelope"
+    ],
+    "hook_end": "Give shagun in style"
   },
   {
     "name": "stickers-and-tags",
@@ -229,7 +249,12 @@
         "WhatsApp 95793 06816"
       ],
       "foot": "Perfect for small businesses and hampers"
-    }
+    },
+    "hook": [
+      "ONE STICKER",
+      "makes the gift look premium"
+    ],
+    "hook_end": "Finish every gift beautifully"
   },
   {
     "name": "kids-gifts",
@@ -262,7 +287,12 @@
         "WhatsApp 95793 06816"
       ],
       "foot": "Birthdays · class gifts · return gifts"
-    }
+    },
+    "hook": [
+      "RETURN GIFTS",
+      "kids actually use"
+    ],
+    "hook_end": "Gifts kids love"
   },
   {
     "name": "calendars-2027",
@@ -305,7 +335,12 @@
         "flinoshprints.com"
       ],
       "foot": "Bulk orders for shops and offices"
-    }
+    },
+    "hook": [
+      "YOUR SHOP NAME",
+      "on their desk all of 2027"
+    ],
+    "hook_end": "Gifts your customers keep all year"
   },
   {
     "name": "adcut-how-it-works",
