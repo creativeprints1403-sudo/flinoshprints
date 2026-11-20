@@ -46,72 +46,21 @@
   },
   {
     "date": "2026-11-21",
-    "video": "assets/youtube/excel-short-1-stop-googling.mp4",
-    "title": "Stop Googling Excel Formulas",
-    "description": "Learn how to get ChatGPT to write, explain and fix Excel formulas for you, even if you hate Excel. We cover SUMIF, SUMIFS, XLOOKUP, IF, COUNTIF and fixing errors, and every prompt works in Google Sheets too.\n\nSome links in my descriptions are affiliate links. If you buy through them I may earn a small commission at no extra cost to you.\n\n#Shorts #AItools #productivity",
+    "video": "assets/youtube/viral-ask-me-questions.mp4",
+    "title": "This one line fixes bad AI answers #shorts",
+    "description": "Add 'Before you answer, ask me 3 questions' to any prompt and get answers that fit what you actually need.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
     "tags": [
-      "chatgpt excel",
-      "excel formulas",
-      "chatgpt excel formulas",
-      "ai for excel",
-      "sumif",
-      "sumifs",
-      "xlookup",
-      "countif",
-      "excel for beginners",
-      "google sheets formulas",
-      "excel tips",
-      "chatgpt for work",
-      "productivity"
-    ],
-    "category": "27"
+      "chatgpt tips",
+      "prompt engineering",
+      "ai prompts",
+      "chatgpt hacks",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
   },
   {
-    "date": "2026-11-23",
-    "video": "assets/youtube/excel-short-2-error.mp4",
-    "title": "Excel Error? Do This",
-    "description": "Learn how to get ChatGPT to write, explain and fix Excel formulas for you, even if you hate Excel. We cover SUMIF, SUMIFS, XLOOKUP, IF, COUNTIF and fixing errors, and every prompt works in Google Sheets too.\n\nSome links in my descriptions are affiliate links. If you buy through them I may earn a small commission at no extra cost to you.\n\n#Shorts #AItools #productivity",
-    "tags": [
-      "chatgpt excel",
-      "excel formulas",
-      "chatgpt excel formulas",
-      "ai for excel",
-      "sumif",
-      "sumifs",
-      "xlookup",
-      "countif",
-      "excel for beginners",
-      "google sheets formulas",
-      "excel tips",
-      "chatgpt for work",
-      "productivity"
-    ],
-    "category": "27"
-  },
-  {
-    "date": "2026-11-25",
-    "video": "assets/youtube/excel-short-3-prompt.mp4",
-    "title": "The Prompt That Writes Better Formulas",
-    "description": "Learn how to get ChatGPT to write, explain and fix Excel formulas for you, even if you hate Excel. We cover SUMIF, SUMIFS, XLOOKUP, IF, COUNTIF and fixing errors, and every prompt works in Google Sheets too.\n\nSome links in my descriptions are affiliate links. If you buy through them I may earn a small commission at no extra cost to you.\n\n#Shorts #AItools #productivity",
-    "tags": [
-      "chatgpt excel",
-      "excel formulas",
-      "chatgpt excel formulas",
-      "ai for excel",
-      "sumif",
-      "sumifs",
-      "xlookup",
-      "countif",
-      "excel for beginners",
-      "google sheets formulas",
-      "excel tips",
-      "chatgpt for work",
-      "productivity"
-    ],
-    "category": "27"
-  },
-  {
-    "date": "2026-11-26",
+    "date": "2026-11-22",
     "video": "assets/youtube/viral-inbox-30-seconds.mp4",
     "title": "Stop reading every email (do this instead) #shorts",
     "description": "Turn 50 unread emails into a 5-line to-do list with one ChatGPT prompt.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
@@ -120,6 +69,66 @@
       "email productivity",
       "inbox zero",
       "ai tools",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-11-23",
+    "video": "assets/youtube/viral-excel-messy-names.mp4",
+    "title": "Fix messy names in Excel with ONE formula #shorts",
+    "description": "Extra spaces and random capitals? =PROPER(TRIM(A2)) fixes them. Ask ChatGPT for the formula, paste, drag down.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "excel formulas",
+      "excel tips",
+      "proper trim",
+      "chatgpt excel",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "video": "assets/youtube/viral-polite-no.mp4",
+    "title": "How to say no by email without guilt (AI does it) #shorts",
+    "description": "Get ChatGPT to write a warm, firm email that says no and offers an alternative.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "email writing",
+      "chatgpt email",
+      "say no",
+      "work tips",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "video": "assets/youtube/viral-long-pdf.mp4",
+    "title": "Don't read the whole PDF. Use this prompt #shorts",
+    "description": "Summarise a long document into 5 bullet points plus every number and date with one ChatGPT prompt.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "summarize pdf",
+      "chatgpt prompts",
+      "ai summary",
+      "study tips",
+      "hours saved by ai",
+      "ai tips",
+      "shorts"
+    ]
+  },
+  {
+    "date": "2026-11-26",
+    "video": "assets/youtube/viral-plan-your-week.mp4",
+    "title": "Plan your whole week with 1 AI prompt #shorts",
+    "description": "Give ChatGPT your tasks and deadlines and get a Monday to Friday plan with the hard work in the mornings.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
+    "tags": [
+      "weekly planning",
+      "chatgpt productivity",
+      "time management",
+      "ai planner",
       "hours saved by ai",
       "ai tips",
       "shorts"
@@ -142,81 +151,6 @@
   },
   {
     "date": "2026-11-28",
-    "video": "assets/youtube/viral-polite-no.mp4",
-    "title": "How to say no by email without guilt (AI does it) #shorts",
-    "description": "Get ChatGPT to write a warm, firm email that says no and offers an alternative.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
-    "tags": [
-      "email writing",
-      "chatgpt email",
-      "say no",
-      "work tips",
-      "hours saved by ai",
-      "ai tips",
-      "shorts"
-    ]
-  },
-  {
-    "date": "2026-11-29",
-    "video": "assets/youtube/viral-excel-messy-names.mp4",
-    "title": "Fix messy names in Excel with ONE formula #shorts",
-    "description": "Extra spaces and random capitals? =PROPER(TRIM(A2)) fixes them. Ask ChatGPT for the formula, paste, drag down.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
-    "tags": [
-      "excel formulas",
-      "excel tips",
-      "proper trim",
-      "chatgpt excel",
-      "hours saved by ai",
-      "ai tips",
-      "shorts"
-    ]
-  },
-  {
-    "date": "2026-11-30",
-    "video": "assets/youtube/viral-long-pdf.mp4",
-    "title": "Don't read the whole PDF. Use this prompt #shorts",
-    "description": "Summarise a long document into 5 bullet points plus every number and date with one ChatGPT prompt.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
-    "tags": [
-      "summarize pdf",
-      "chatgpt prompts",
-      "ai summary",
-      "study tips",
-      "hours saved by ai",
-      "ai tips",
-      "shorts"
-    ]
-  },
-  {
-    "date": "2026-12-01",
-    "video": "assets/youtube/viral-plan-your-week.mp4",
-    "title": "Plan your whole week with 1 AI prompt #shorts",
-    "description": "Give ChatGPT your tasks and deadlines and get a Monday to Friday plan with the hard work in the mornings.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
-    "tags": [
-      "weekly planning",
-      "chatgpt productivity",
-      "time management",
-      "ai planner",
-      "hours saved by ai",
-      "ai tips",
-      "shorts"
-    ]
-  },
-  {
-    "date": "2026-12-02",
-    "video": "assets/youtube/viral-ask-me-questions.mp4",
-    "title": "This one line fixes bad AI answers #shorts",
-    "description": "Add 'Before you answer, ask me 3 questions' to any prompt and get answers that fit what you actually need.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
-    "tags": [
-      "chatgpt tips",
-      "prompt engineering",
-      "ai prompts",
-      "chatgpt hacks",
-      "hours saved by ai",
-      "ai tips",
-      "shorts"
-    ]
-  },
-  {
-    "date": "2026-12-03",
     "video": "assets/youtube/viral-reply-templates.mp4",
     "title": "Never type the same reply twice #shorts",
     "description": "Get ChatGPT to write reply templates for your most common customer questions: price, delivery and refunds.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
@@ -231,7 +165,7 @@
     ]
   },
   {
-    "date": "2026-12-04",
+    "date": "2026-11-29",
     "video": "assets/youtube/viral-excel-split-names.mp4",
     "title": "Split full names in Excel instantly #shorts",
     "description": "First and last name in one cell? =TEXTSPLIT(A2,\" \") splits them in Excel 365. Ask ChatGPT for the formula.\n\nA new time-saving AI tip every day. Follow Hours Saved by Ai.\n\n#Shorts #AItools #productivity #chatgpt",
@@ -244,5 +178,71 @@
       "ai tips",
       "shorts"
     ]
+  },
+  {
+    "date": "2026-11-30",
+    "video": "assets/youtube/excel-short-1-stop-googling.mp4",
+    "title": "Stop Googling Excel Formulas",
+    "description": "Learn how to get ChatGPT to write, explain and fix Excel formulas for you, even if you hate Excel. We cover SUMIF, SUMIFS, XLOOKUP, IF, COUNTIF and fixing errors, and every prompt works in Google Sheets too.\n\nSome links in my descriptions are affiliate links. If you buy through them I may earn a small commission at no extra cost to you.\n\n#Shorts #AItools #productivity",
+    "tags": [
+      "chatgpt excel",
+      "excel formulas",
+      "chatgpt excel formulas",
+      "ai for excel",
+      "sumif",
+      "sumifs",
+      "xlookup",
+      "countif",
+      "excel for beginners",
+      "google sheets formulas",
+      "excel tips",
+      "chatgpt for work",
+      "productivity"
+    ],
+    "category": "27"
+  },
+  {
+    "date": "2026-12-01",
+    "video": "assets/youtube/excel-short-2-error.mp4",
+    "title": "Excel Error? Do This",
+    "description": "Learn how to get ChatGPT to write, explain and fix Excel formulas for you, even if you hate Excel. We cover SUMIF, SUMIFS, XLOOKUP, IF, COUNTIF and fixing errors, and every prompt works in Google Sheets too.\n\nSome links in my descriptions are affiliate links. If you buy through them I may earn a small commission at no extra cost to you.\n\n#Shorts #AItools #productivity",
+    "tags": [
+      "chatgpt excel",
+      "excel formulas",
+      "chatgpt excel formulas",
+      "ai for excel",
+      "sumif",
+      "sumifs",
+      "xlookup",
+      "countif",
+      "excel for beginners",
+      "google sheets formulas",
+      "excel tips",
+      "chatgpt for work",
+      "productivity"
+    ],
+    "category": "27"
+  },
+  {
+    "date": "2026-12-02",
+    "video": "assets/youtube/excel-short-3-prompt.mp4",
+    "title": "The Prompt That Writes Better Formulas",
+    "description": "Learn how to get ChatGPT to write, explain and fix Excel formulas for you, even if you hate Excel. We cover SUMIF, SUMIFS, XLOOKUP, IF, COUNTIF and fixing errors, and every prompt works in Google Sheets too.\n\nSome links in my descriptions are affiliate links. If you buy through them I may earn a small commission at no extra cost to you.\n\n#Shorts #AItools #productivity",
+    "tags": [
+      "chatgpt excel",
+      "excel formulas",
+      "chatgpt excel formulas",
+      "ai for excel",
+      "sumif",
+      "sumifs",
+      "xlookup",
+      "countif",
+      "excel for beginners",
+      "google sheets formulas",
+      "excel tips",
+      "chatgpt for work",
+      "productivity"
+    ],
+    "category": "27"
   }
 ]
