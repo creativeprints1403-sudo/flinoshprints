@@ -28,6 +28,8 @@ def rank(item):
 
 
 def to_jpg(image_url):
+    if not image_url.startswith(SITE):
+        return image_url  # hosted elsewhere (Amazon); no local copy to convert
     rel = image_url[len(SITE):]
     src = ROOT / rel
     out = ROOT / "assets" / "pins" / (src.stem + ".jpg")
